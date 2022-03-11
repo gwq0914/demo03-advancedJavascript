@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <p>修改元素属性：src,href,id,alt,title</p>
+    <p>开关灯</p>
+    <div id="lamp">
+      <button id="lampBtn">开灯</button>
+      <p>
+        <img id="lampImg" src="images/LampTurnOff.jpg" alt="" />
+      </p>
+    </div>
+    <p>
+      ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+    </p>
+    <div id="greet">
+      <p>分时问候案例</p>
+      <p>根据上午下午晚上不同的时间，显示不同的图片，同时，显示文字。</p>
+      <div id="timeDay">哈哈哈</div>
+      <img src="images/morning.jpg" alt="" id="timeDayImg" />
+    </div>
+    <script>
+      var lampBtn = document.getElementById("lampBtn");
+      var lampImg = document.getElementById("lampImg");
+      lampBtn.onclick = function () {
+        if (this.innerHTML == "开灯") {
+          lampImg.src = "images/LampTurnOn.jpg";
+          this.innerHTML = "关灯";
+        } else {
+          lampImg.src = "images/LampTurnOff.jpg";
+          this.innerHTML = "开灯";
+        }
+      };
+      //---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+      var timeDay = document.getElementById("timeDay");
+      var timeDayImg = document.getElementById("timeDayImg");
+      var timer = new Date();
+      var h = timer.getHours();
+      if (h < 12 && h > 5) {
+        timeDay.innerHTML = "早安！";
+        timeDayImg.src = "images/morning.jpg";
+      } else if (h >= 12 && h <= 20) {
+        timeDay.innerHTML = "下午好！";
+        timeDayImg.src = "images/afternoon.jpg";
+      } else {
+        timeDay.innerHTML = "晚安！";
+        timeDayImg.src = "images/night.jpg";
+      }
+      lampBtn = null;
+      lampImg = null;
+      timeDay = null;
+      timeDayImg = null;
+      timeDay = null;
+      h = null;
+    </script>
+  </body>
+</html>
