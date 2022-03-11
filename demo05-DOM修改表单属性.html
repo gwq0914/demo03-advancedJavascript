@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <style>
+      .box {
+        width: 400px;
+        border-bottom: 1px solid #000;
+        position: relative;
+      }
+      .box label img {
+        position: absolute;
+        top: 10px;
+        right: 10px;
+        width: 24px;
+      }
+      #pwd {
+        width: 360px;
+        height: 40px;
+        border: 0;
+        outline: none;
+      }
+    </style>
+  </head>
+  <body>
+    <p>
+      利用DOM可以操作如下表单元素的属性：<br />
+      type、value、checked、selected、disabled
+    </p>
+    <p>
+      ----------------------------------------------------------------------------------------------
+    </p>
+    <button id="btn">按钮</button>
+    <input type="text" id="input" value="未被点击的状态" />
+    <p>点击按钮，按钮为不能点击状态，文本框中显示是否为点击状态</p>
+    <script>
+      var btn = document.getElementById("btn");
+      var input = document.getElementById("input");
+      btn.onclick = function () {
+        input.value = "被点击状态";
+        this.disabled = true;
+      };
+    </script>
+    <p>
+      ----------------------------------------------------------------------------------------------
+    </p>
+    <p>仿京东显示隐藏密码明文案例</p>
+    <p>点击小眼睛，实现密码显示与否</p>
+    <div class="box">
+      <label for="pwd">
+        <img src="images/眼睛-关.png" id="pwdEye" />
+      </label>
+      <input type="password" id="pwd" value="" placeholder="请输入密码;" />
+    </div>
+    <script>
+      var pwdInput = document.getElementById("pwd");
+      var pwdEye = document.getElementById("pwdEye");
+      var flag = 0;
+      pwdEye.onclick = function () {
+        if (flag == 0) {
+          this.src = "images/眼睛-开.png";
+          pwdInput.type = "text";
+          flag = 1;
+        } else {
+          this.src = "images/眼睛-关.png";
+          pwdInput.type = "password";
+          flag = 0;
+        }
+      };
+      // btn = null;
+      // input = null;
+      // flag = null;
+      // pwdInput = null;
+      // pwdEye = null;
+    </script>
+  </body>
+</html>
