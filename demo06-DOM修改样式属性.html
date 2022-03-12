@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=.0" />
+    <title>Document</title>
+    <style>
+      /* style变化 */
+      #box {
+        width: 200px;
+        height: 200px;
+        background-color: pink;
+      }
+      /* 二维码关闭 */
+      #RQ {
+        width: 6px;
+        position: relative;
+      }
+      #close {
+        position: absolute;
+        top: -2px;
+        left: 78px;
+        cursor: pointer;
+      }
+      /* 循环精灵 */
+      #spirits {
+        height: 256px;
+        width: 320px;
+        line-height: 64px;
+        margin: 0 auto;
+        padding: 0;
+      }
+      #spirits ul {
+        margin: 0;
+      }
+      #spirits ul li {
+        float: left;
+        width: 24px;
+        height: 24px;
+        margin: 20px 20px;
+        background: url(images/循环精灵图.png);
+        list-style: none;
+      }
+      /* 显示隐藏文本框 */
+      #phone {
+        height: 40px;
+        width: 246px;
+        padding: 2px;
+        margin: 0;
+        position: relative;
+      }
+      #inputPhone {
+        height: 34px;
+        width: 170px;
+        color: #999;
+        border: 1px solid rgb(193, 172, 248);
+        padding: 2px;
+        padding-left: 10px;
+        outline: none;
+      }
+      #btnPhone {
+        height: 40px;
+        width: 72px;
+        border: 0;
+        padding: 0px;
+        background-color: rgb(193, 172, 248);
+        cursor: pointer;
+        position: absolute;
+        top: 2px;
+        right: 0;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="box"></div>
+    <p>
+      我们通过js就该元素的大小、颜色样式、位置等样式。<br />
+      element.style 行内样式操作<br />
+      element.className 类名样式操作<br />
+      注意：<br />js里面的样式采用驼峰命名法<br />
+      js修改style样式操作，产生的时行内样式，css权重比较高
+    </p>
+    <script>
+      //获取元素
+      var box = document.getElementById("box");
+      //2.注册事件 处理程序
+      box.onclick = function () {
+        this.style.backgroundColor = "purple";
+        this.style.width = "250px";
+      };
+      //box = null;
+    </script>
+    <p>案例：仿淘宝关闭二维码案例</p>
+    <p>
+      核心思路：利用样式的显示和隐藏完成，display:none隐藏元素，display:block显示元素
+    </p>
+    <div id="RQ">
+      <a href="https://www.taobao.com">
+        <img src="images/淘宝二维码.JPG" alt="淘宝,应有尽有" />
+      </a>
+      <div id="close">
+        <img src="images/close.JPG" alt="关闭" width="16px" />
+      </div>
+    </div>
+    <script>
+      var RQ = document.getElementById("RQ");
+      var close = document.getElementById("close");
+      close.onclick = function () {
+        RQ.style.display = "none";
+      };
+      // RQ = null;
+      // close = null;
+    </script>
+    <p>案例：循环精灵图</p>
+    <p>使用js完成css每个列表li元素的排版</p>
+    <div id="spirits">
+      <ul>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+      </ul>
+    </div>
+    <script>
+      var lis = document.getElementsByTagName("li");
+      for (var i = 0; i < lis.length; i++) {
+        var index = i * 44;
+        lis[i].style.backgroundPosition = "0 -" + index + "px";
+      }
+      //lis = null;
+    </script>
+    <p>案例：显示隐藏文本框内容</p>
+    <p>
+      当鼠标点击文本框时，里面的默认文字隐藏，当鼠标离开文本框时，里面的文字显示'手机'两个字
+    </p>
+    <div id="phone">
+      <input type="text" id="inputPhone" value="手机" />
+      <button id="btnPhone">搜索</button>
+    </div>
+    <script>
+      var inputPhone = document.getElementById("inputPhone");
+      var btnPhone = document.getElementById("btnPhone");
+      inputPhone.onblur = function () {
+        if (this.value == "") {
+          this.value = "手机";
+          this.style.color = "#999";
+        }
+      };
+      inputPhone.onfocus = function () {
+        if (this.value == "手机") {
+          this.value = "";
+          this.style.color = "#000";
+        }
+      };
+      //inputPhone = null;
+      //btnPhone = null;
+      // flag = null;
+    </script>
+  </body>
+</html>
