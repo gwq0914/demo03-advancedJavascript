@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <style>
+      table {
+        width: 600px;
+        border-left: 1px solid #000;
+        border-top: 1px solid #000;
+        border-spacing: 0;
+        margin: 20px auto;
+      }
+      thead tr {
+        background-color: peachpuff;
+        height: 35px;
+      }
+      table th,
+      table td {
+        text-align: center;
+        border-right: 1px solid #000;
+        border-bottom: 1px solid #000;
+      }
+    </style>
+  </head>
+  <body>
+    <table>
+      <thead>
+        <tr>
+          <th>消费项目....</th>
+          <th>一月</th>
+          <th>二月</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>帽子</td>
+          <td>$730.40</td>
+          <td>$650.00</td>
+        </tr>
+        <tr>
+          <td>衣服</td>
+          <td>$241.10</td>
+          <td>$50.20</td>
+        </tr>
+        <tr>
+          <td>裤子</td>
+          <td>$241.10</td>
+          <td>$50.20</td>
+        </tr>
+        <tr>
+          <td>鞋子</td>
+          <td>$241.10</td>
+          <td>$50.20</td>
+        </tr>
+        <tr>
+          <td>袜子</td>
+          <td>$30.00</td>
+          <td>$44.45</td>
+        </tr>
+        <tr>
+          <td>包包</td>
+          <td>$241.10</td>
+          <td>$50.20</td>
+        </tr>
+        <tr>
+          <th>总计</th>
+          <th>$1001.50</th>
+          <th>$744.65</th>
+        </tr>
+      </tbody>
+    </table>
+    <script>
+      var trs = document.querySelector("tbody").querySelectorAll("tr");
+      //方法一：
+      for (var i = 0; i < trs.length; i++) {
+        trs[i].onmouseover = function () {
+          for (var i = 0; i < trs.length; i++) {
+            trs[i].style.backgroundColor = "";
+          }
+          this.style.backgroundColor = "rgb(248, 248, 196)";
+        };
+      }
+      //方法二：
+      var tr = document.querySelector("tbody").querySelectorAll("tr");
+      for (var i = 0; i < tr.length; i++) {
+        tr[i].onmouseover = function () {
+          this.style.backgroundColor = "rgb(248, 248, 196)";
+        };
+        tr[i].onmouseout = function () {
+          this.style.backgroundColor = "";
+        };
+      }
+      trs = null;
+      tr = null;
+    </script>
+  </body>
+</html>
