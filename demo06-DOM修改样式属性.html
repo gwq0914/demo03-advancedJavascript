@@ -70,6 +70,15 @@
         top: 2px;
         right: 0;
       }
+      /* 使用className 修改样式 */
+      .change {
+        width: 300px;
+        height: 85px;
+        font-size: 10px;
+        color: blueviolet;
+        background: moccasin;
+        margin-bottom: 10px;
+      }
     </style>
   </head>
   <body>
@@ -165,6 +174,25 @@
       };
       inputPhone = null;
       btnPhone = null;
+    </script>
+    <p>
+      使用element.style 获得修改元素样式
+      如果样式比较少或者功能简单的情况下使用<br />
+      若是修改样式比较多，使用element.className 类名样式操作<br />
+      className
+      会直接改变元素的类名，会覆盖原先的类名，想要保留原先的类名，需加上原先的类名this.className
+      = 'customary change';变成多类名选择器
+    </p>
+    <div id="customary">
+      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;与其规定自己一定要成为一个什么样的人物，获得什么东西，不如磨练自己做一个努力的人。志向再高，没有努力，志向终难坚守；没有远大目标，因为努力，终会找到奋斗的方向。做一个努力的人，可以说是人生最切实际的目标，是人生最大的境界。
+    </div>
+    <button id="changeBtn">改变样式</button>
+    <script>
+      var customary = document.getElementById("customary");
+      var changeBtn = document.getElementById("changeBtn");
+      changeBtn.onclick = function () {
+        customary.className = "change";
+      };
     </script>
   </body>
 </html>
