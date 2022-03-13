@@ -79,12 +79,21 @@
         background: moccasin;
         margin-bottom: 10px;
       }
+      /* 案例：密码框格式提示信息 */
+      #pPwd {
+        display: inline-block;
+        height: 22px;
+        line-height: 22px;
+        /* background: url(images/一般提示.png) left center no-repeat; */
+        /* padding-left: 30px; */
+        font-size: 10px;
+      }
     </style>
   </head>
   <body>
     <div id="box"></div>
     <p>
-      我们通过js就该元素的大小、颜色样式、位置等样式。<br />
+      我们通过js改变元素的大小、颜色样式、位置等样式。<br />
       element.style 行内样式操作<br />
       element.className 类名样式操作<br />
       注意：<br />js里面的样式采用驼峰命名法<br />
@@ -192,6 +201,38 @@
       var changeBtn = document.getElementById("changeBtn");
       changeBtn.onclick = function () {
         customary.className = "change";
+      };
+      customary = null;
+      changeBtn = null;
+    </script>
+    <div id="boxPwd">
+      <label for="inputPwd">密码：</label>
+      <input type="password" id="inputPwd" />
+      <p id="pPwd"></p>
+    </div>
+    <script>
+      var inputPwd = document.getElementById("inputPwd");
+      var pPwd = document.getElementById("pPwd");
+      inputPwd.onfocus = function () {
+        pPwd.innerHTML =
+          "请正确输入密码:6~16位字符，（字母、数字、符号），区分大小写";
+        pPwd.style.color = "#999";
+        pPwd.style.backgroundImage = "images/一般提示.png";
+      };
+      inputPwd.onblur = function () {
+        if (inputPwd.value.length < 6) {
+          pPwd.innerHTML = "输入密码格式错误，位数小于6位数";
+          // pPwd.style.backgroundImage = "images/错误提示.png";
+          pPwd.style.color = "red";
+        } else if (inputPwd.value.length > 16) {
+          pPwd.innerHTML = "输入密码格式错误，位数大于16位数";
+          // pPwd.style.backgroundImage = "images/错误提示.png";
+          pPwd.style.color = "red";
+        } else {
+          pPwd.innerHTML = "输入密码格式正确";
+          pPwd.style.color = "green";
+          // pPwd.style.backgroundImage = "images/正确提示.png";
+        }
       };
     </script>
   </body>
