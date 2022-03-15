@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <style>
+      #demo {
+        width: 100%;
+        border-top: 3px solid rgb(255, 201, 119);
+        border-bottom: 3px solid rgb(255, 201, 119);
+        margin: 0 auto;
+      }
+      #nav {
+        height: 80px;
+        width: 80%;
+        margin: 0 auto;
+      }
+      #nav > li > a {
+        display: inline-block;
+        width: 50px;
+        text-align: center;
+        text-decoration: none;
+        color: black;
+      }
+      #nav > li {
+        height: 80px;
+        line-height: 80px;
+        padding: 0 20px;
+        float: left;
+        cursor: pointer;
+        list-style: none;
+        position: relative;
+      }
+      #nav > li > ul {
+        display: none;
+        list-style: none;
+        margin-top: 24px;
+        position: absolute;
+        top: 60px;
+        left: -20px;
+      }
+      .bg {
+        background-color: rgb(255, 201, 119);
+      }
+      #nav > li > a:hover {
+        background-color: rgb(255, 201, 119);
+      }
+      #nav > li > ul > li {
+        height: 17px;
+        line-height: 17px;
+        width: 50px;
+        text-align: center;
+        border: 1px solid rgb(255, 201, 119);
+      }
+      #nav > li > ul > li:hover {
+        background-color: rgb(255, 201, 119);
+      }
+    </style>
+  </head>
+  <body>
+    <div id="demo">
+      <ul id="nav">
+        <li>
+          <a href="">微博</a>
+          <ul>
+            <li>私信</li>
+            <li>评论</li>
+            <li>@我</li>
+          </ul>
+        </li>
+        <li>
+          <a href="">微信</a>
+          <ul>
+            <li>私信</li>
+            <li>私信</li>
+            <li>私信</li>
+          </ul>
+        </li>
+        <li>
+          <a href="">QQ</a>
+          <ul>
+            <li>私信</li>
+            <li>私信</li>
+            <li>评论</li>
+          </ul>
+        </li>
+      </ul>
+    </div>
+    <script>
+      var nav = document.getElementById("nav");
+      var lis = nav.children;
+
+      //这样设置的弊端：鼠标离开最后一个li时，不能隐藏
+      // for (var i = 0; i < lis.length; i++) {
+      //   lis[i].onmouseover = function () {
+      //     for (var i = 0; i < lis.length; i++) {
+      //       lis[i].className = "";
+      //       lis[i].children[1].style.display = "none";
+      //     }
+      //     this.children[1].style.display = "block";
+      //     this.className = "bg";
+      //   };
+      // }
+
+      for (var i = 0; i < lis.length; i++) {
+        lis[i].onmouseover = function () {
+          this.children[1].style.display = "block";
+          this.className = "bg";
+        };
+        lis[i].onmouseout = function () {
+          this.children[1].style.display = "none";
+          this.className = "";
+        };
+      }
+    </script>
+  </body>
+</html>
