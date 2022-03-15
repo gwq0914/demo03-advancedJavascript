@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <div id="demo" data-index="1" class="nav"></div>
+    <p>
+      1.获取元素的属性值<br />
+      (1) element.属性<br />
+      (2) element.getAttribute('属性') get得到，获取 attribute属性<br />
+      (3)
+      h5新增获取自定义属性，需要element.data.属性,或者element.dataset['属性']，ie11才兼容
+      <br />
+      dataset 是一个集合里面存放了所有以data开头的自定义属性<br /><br />
+      区别：<br />
+      element.属性;获取内置属性值（元素本身自带的属性）<br />
+      element.getAttribute('属性');主要获得自定义的属性（标准），我们程序员自定义的属性
+    </p>
+    <script>
+      var demo = document.getElementById("demo");
+      var div = document.querySelector("div");
+      console.log(demo.id); //第一种方式
+      console.log(demo.getAttribute("id")); //第二种方式
+      console.log(div.getAttribute("data-index")); //第二种方式
+      console.log(div.dataset.index); //第三种方式
+      console.log(div.dataset["index"]); //第三种方式
+      //   demo = null;
+      //   div = null;
+    </script>
+    <p>
+      2.设置元素的属性值 <br />
+      (1)element.属性 = "值"; 设置内置属性 <br />
+      (2)element.setAttribute('属性','值'); 主要设置自定义属性<br />
+      注意：h5新增设置自定义属性，需要加data，如果自定义属性名中有多个-连接的词，使用data获取元素属性和值的时候要用驼峰命名法
+    </p>
+    <script>
+      demo.id = "test"; //第一种方式
+      demo.className = "footer"; //第一种方式
+      demo.setAttribute("id", "text"); //第二种方式
+      demo.setAttribute("class", "navs footer"); //第二种方式
+      console.log(div.id);
+      console.log(div.getAttribute("id"));
+      console.log(demo.getAttribute("id"));
+      div.setAttribute("data-index", "2"); //第二种方式
+      console.log(div.getAttribute("data-index"));
+      console.log(div.dataset.index);
+      div.setAttribute("data-class-name", "yang"); //第二种方式
+      //console.log(div.dataClassName);  这个是不行
+      console.log(div.dataset.className); //第三种方式
+    </script>
+    <p>
+      3.移除元素的属性值 <br />
+      element.removeAttribute('属性'); 移除自定义属性<br />
+    </p>
+    <script>
+      div.removeAttribute("data-index");
+    </script>
+    <p>
+      <a href="demo09-自定义属性-获取、设置、移除-tab切换案例.html"
+        >案例:tab切换</a
+      >
+    </p>
+  </body>
+</html>
