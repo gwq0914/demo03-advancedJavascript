@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <style>
+      textarea {
+        width: 500px;
+        height: 100px;
+      }
+      button {
+        margin: 0px 20px -30px;
+      }
+      ul {
+        margin: 0;
+        padding: 0;
+        font-size: large;
+      }
+      #nodeShow li {
+        padding: 5px 10px;
+        list-style: none;
+        background: palegoldenrod;
+      }
+    </style>
+  </head>
+  <body>
+    <p>动态创建元素节点</p>
+    <p>
+      document.createElement('tagName');方法创建由tagName指定的HTML元素。因为这些元素原先不存在，时根据我们的需求动态生成的，所以我们也称为动态创建元素节点。
+    </p>
+    <p>添加节点</p>
+    <p>
+      node.appendChild(child)方法将一个节点添加到指定父节点的子节点列表末尾。蕾西与css里面的after伪元素
+      push()
+    </p>
+    <p>
+      node.insertBefore(child,指定元素)方法将一个节点添加到父节点的指定子节点前面。类似于css里面的before伪元素。
+    </p>
+    <ul></ul>
+    <script>
+      //创建元素节点
+      var li = document.createElement("li");
+      //添加节点
+      var ul = document.querySelector("ul");
+      ul.appendChild(li);
+      var lili = document.createElement("li");
+      ul.insertBefore(lili, ul.children[ul.children.length - 1]);
+    </script>
+    <p>案例：简单版发布留言案例</p>
+    <div id="node">
+      <textarea id="nodeTextarea"></textarea>
+      <button id="nodeBtn">发布</button>
+      <ul id="nodeShow"></ul>
+    </div>
+    <script>
+      //1.获取元素：
+      var nodeTextarea = document.getElementById("nodeTextarea");
+      var nodeBtn = document.getElementById("nodeBtn");
+      var nodeShow = document.getElementById("nodeShow");
+      var nodeLi = document.createElement("li");
+      nodeBtn.onclick = function () {
+        if (nodeTextarea.value == "") {
+          alert("留言不知去哪啦~");
+        } else {
+          var nodeLi = document.createElement("li");
+          nodeLi.innerHTML = nodeTextarea.value;
+          // nodeShow.appendChild(nodeLi);
+          nodeShow.insertBefore(nodeLi, nodeShow.children[0]); //最新发布的留言在最前面
+          nodeTextarea.value = "";
+        }
+      };
+    </script>
+  </body>
+</html>
