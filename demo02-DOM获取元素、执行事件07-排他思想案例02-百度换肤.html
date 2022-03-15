@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <style>
+      .nav {
+        width: 631px;
+        margin: 100px auto;
+      }
+      .box {
+        width: 150px;
+        height: 94px;
+        border: 2px solid #000;
+      }
+      body {
+        background-size: cover;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="nav">
+      <div>
+        <img alt="" class="box" />
+        <img alt="" class="box" />
+        <img alt="" class="box" />
+        <img alt="" class="box" />
+      </div>
+      <div>
+        <img alt="" class="box" />
+        <img alt="" class="box" />
+        <img alt="" class="box" />
+        <img alt="" class="box" />
+      </div>
+      <div>
+        <img alt="" class="box" />
+        <img alt="" class="box" />
+        <img alt="" class="box" />
+        <img alt="" class="box" />
+      </div>
+    </div>
+    <script>
+      var imgs = document.getElementsByTagName("img");
+      var bodyEle = document.body;
+      for (var i = 0; i < imgs.length; i++) {
+        var index = i + 1;
+        imgs[i].src = "images/pic" + index + ".jpeg";
+      }
+      for (var j = 0; j < imgs.length; j++) {
+        imgs[j].onclick = function () {
+          bodyEle.style.backgroundImage = "url(" + this.src + ")";
+        };
+      }
+      //这种方法是错误的，只能是显示或者隐藏时，才能在for循环中使用索引设置属性，其他还是要用属性设置属性
+      // for (var j = 0; j < imgs.length; j++) {
+      //   imgs[j].onclick = function () {
+      //     for (var k = 0; k < imgs.length; k++) {
+      //       imgs[k].style.backgroundImg = "";
+      //     }
+      //     x = j + 1;
+      //     bodyEle.style.backgroundImage = "url(images/pic" + x + ".jpeg)";
+      //   };
+      // }
+      imgs = null;
+      bodyEle = null;
+    </script>
+  </body>
+</html>
