@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <p>创建元素的方法：</p>
+    <p>1.document.write()创建元素</p>
+    <p>2.element.innerHTML创建元素</p>
+    <p>3.element.createElement()</p>
+    <p>
+      区别：<br />
+      1.document.write是直接将内容写入页面的内容流，但是文档流执行完毕，则它会导致页面全部重绘<br />
+      2.innerHTML是将内容写入某个DOM节点，不会导致页面全部重绘<br />
+      3.innerHTML创建多个元素效率更高（不要拼接字符串，采取数组形式拼接），结构稍微复杂<br />
+      4.createElement()创建多个元素效率稍低一点点，但是结构更清晰
+    </p>
+    <p>总结：不同浏览器下，innerHTML效率要比creatElement高</p>
+  </body>
+</html>
