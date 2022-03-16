@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <style>
+      li {
+        list-style: none;
+      }
+      #node div {
+        height: 100px;
+        margin-bottom: 50px;
+      }
+      #node textarea {
+        width: 500px;
+        height: 100px;
+      }
+      #node button {
+        margin: 0px 20px 50px;
+      }
+      #node ul {
+        margin: 0;
+        padding: 0;
+        font-size: 16px;
+      }
+      #node ul li {
+        height: 30px;
+        line-height: 30px;
+        list-style: none;
+        background: palegoldenrod;
+        margin-bottom: 5px;
+        font-size: 14px;
+      }
+    </style>
+  </head>
+  <body>
+    <p>node.removeChild(child)方法从DOM中删除一个子节点，返回删除的节点</p>
+    <button class="btn">删除</button>
+    <ul class="ul" style="height: 100px">
+      <li>熊大</li>
+      <li>熊二</li>
+      <li>光头强</li>
+    </ul>
+    <script>
+      var ul = document.getElementsByClassName("ul");
+      var btn = document.getElementsByClassName("btn");
+      btn[0].onclick = function () {
+        if (ul[0].children.length != 0) {
+          ul[0].removeChild(ul[0].children[ul[0].children.length - 1]);
+        } else {
+          this.disabled = true;
+          alert("家里没存货啦~，不要点啦~");
+        }
+      };
+    </script>
+    <p>删除留言案例</p>
+    <div id="node">
+      <div>
+        <textarea id="nodeTextarea"></textarea>
+        <button id="nodeBtn">发布</button>
+      </div>
+      <ul id="nodeShow"></ul>
+    </div>
+    <script>
+      //1.获取元素：
+      var nodeTextarea = document.getElementById("nodeTextarea");
+      var nodeBtn = document.getElementById("nodeBtn");
+      var nodeShow = document.getElementById("nodeShow");
+      nodeBtn.onclick = function () {
+        if (nodeTextarea.value == "") {
+          alert("留言不知去哪啦~");
+        } else {
+          var nodeLi = document.createElement("li");
+          var nodeSpan = document.createElement("span");
+          var nodeDelBtn = document.createElement("button");
+          nodeLi.appendChild(nodeSpan);
+          nodeLi.appendChild(nodeDelBtn);
+          nodeDelBtn.innerHTML = "删除";
+          nodeSpan.innerHTML = nodeTextarea.value;
+          nodeShow.insertBefore(nodeLi, nodeShow.children[0]); //最新发布的留言在最前面
+          nodeTextarea.value = "";
+          for (var i = 0; i < nodeShow.children.length; i++) {
+            nodeShow.children[i].children[1].onclick = function () {
+              nodeShow.removeChild(this.parentNode);
+            };
+          }
+        }
+      };
+    </script>
+  </body>
+</html>
