@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <style>
+    ul > li > span{
+      font-size: 16px;
+      font-weight: 700;
+      text-decoration: underline;
+    }
+    ul > li > ul > li{
+      list-style: none;
+    }
+    table{
+      width: 500px;
+      margin-left: 50px;
+      border-spacing: 0;
+      border-left: 1px solid black;
+      border-top: 1px solid black;
+    }
+    table td{
+      border-bottom: 1px solid black;
+      border-right: 1px solid black;
+    }
+  </style>
+  <body>
+    <p>
+      文档对象模型(Document Object
+      Model),是W3C组织推荐的处理可扩展标记语言（HTML或者XML）的标准编程接口。<br />
+      w3c已经定义了一系列的DOM接口，通过这些DOM接口可以改变网页的内容、结构和样式。
+    </p>
+    <p>
+      1.对于javascript,为了能够使js操作HTML,js就有了一套自己的DOM接口<br />
+      2.对于HTML，dom使得html形成一棵DOM树，包含文档、元素、节点<br />
+      <img src="images/DOM树.png" alt="" /><br />
+      注意：我们获取过来的DOM元素是一个对象，所以称为文档对象模型<br />
+      <br />
+      <br />
+      关于DOM操作，我们主要针对元素的操作。主要有创建、增、删、改、查、属性操作、事件操作
+      <ul>
+        <li>
+          <span>创建</span>
+          <ul>
+            <li>1.document.write</li>
+            <li>2.innerHTML</li>
+            <li>3.element.createElement</li>
+          </ul>
+        </li>
+        <li>
+          <span>增</span>
+          <ul>
+            <li>1.element.append();把括号里的参数添加到element节点的子节点最后一个</li>
+            <li>2.element.insertBefore(a,b);把a添加到element节点的子节点b之前</li>
+          </ul>
+        </li>
+        <li>
+          <span>删</span>
+          <ul>
+            <li>1.element.removeChild();删除element节点的某个子节点</li>
+          </ul>
+        </li>
+        <li>
+          <span>改：主要修改dom元素的属性，dom元素的内容、属性、样式、表单</span>
+          <ul>
+            <li>1.修改内容：element.innerHTML和element.innetText</li>
+            <li>2.修改属性：src,href,title,alt,id</li>
+            <li>3.修改样式：element.style.attribute和element.className</li>
+            <li>4.修改表单：表单的属性value,type,checked,selected,disabled</li>
+          </ul>
+          
+        </li>
+        <li>
+          <span>查：主要获取查询DOM的元素</span>
+          <ul>
+            <li>1.DOM提供的API方法：getElementById、getElementsByTagName、古老用法不太推荐</li>
+            <li>2.H5提供的新方法：querySeletor、querSelectorAll提倡</li>
+            <li>3.利用节点操作获取元素：<br />父：parentNode、<br />子：childNode、firstChild、lastChild、children、firstElementChild、lastElementChild、<br />兄：previousElement、nextElementChild、previousChild、nextChild</li>
+          </ul>
+        </li>
+        <li>
+          <span>属性操作</span>
+          <ul>
+            <li>1.setAttribute 设置属性</li>
+            <li>2.getAttribute 获取属性</li>
+            <li>3.removeAttribute 移除属性</li>
+          </ul>
+        </li>
+        <li>
+          <span>给元素注册事件，采取事件源.事件类型 = 事件处理程序</span>
+          <table>
+            <tr>
+              <td>鼠标事件</td>
+              <td>触发条件</td>
+            </tr>
+            <tr>
+              <td>onclick</td>
+              <td>鼠标点击左键触发</td>
+            </tr>
+            <tr>
+              <td>onmouseover</td>
+              <td>鼠标经过触发</td>
+            </tr>
+            <tr>
+              <td>onmouseout</td>
+              <td>鼠标离开触发</td>
+            </tr>
+            <tr>
+              <td>onfocus</td>
+              <td>获得鼠标焦点触发</td>
+            </tr>
+            <tr>
+              <td>onblur</td>
+              <td>失去鼠标焦点触发</td>
+            </tr>
+            <tr>
+              <td>onmousemove</td>
+              <td>鼠标移动触发</td>
+            </tr>
+            <tr>
+              <td>onmouseup</td>
+              <td>鼠标弹起触发</td>
+            </tr>
+            <tr>
+              <td>onmousedown</td>
+              <td>鼠标按下触发</td>
+            </tr>
+            
+          </table>
+        </li>
+      </ul>
+    </p>
+  </body>
+</html>
