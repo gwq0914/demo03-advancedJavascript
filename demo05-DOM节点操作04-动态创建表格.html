@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <style>
+      table {
+        width: 500px;
+        border-top: 2px solid #999;
+        border-left: 2px solid #999;
+        border-spacing: 0;
+        margin: 0 auto;
+      }
+      table td {
+        border-bottom: 2px solid #999;
+        border-right: 2px solid #999;
+        font-weight: 700;
+        text-align: center;
+      }
+      table thead tr {
+        background-color: rgb(216, 216, 216);
+      }
+    </style>
+  </head>
+  <body>
+    <table>
+      <thead>
+        <tr>
+          <td><input type="checkbox" id="selectA" /></td>
+          <td>姓名</td>
+          <td>科目</td>
+          <td>成绩</td>
+          <td>操作</td>
+        </tr>
+      </thead>
+      <tbody id="tbody"></tbody>
+    </table>
+    <script>
+      //1.先去准备好数据
+      var datas = [
+        {
+          name: "andy",
+          subject: "js",
+          score: 100,
+        },
+        {
+          name: "butterfly",
+          subject: "js",
+          score: 80,
+        },
+        {
+          name: "alice",
+          subject: "js",
+          score: 50,
+        },
+        {
+          name: "xxxx",
+          subject: "js",
+          score: 99,
+        },
+      ];
+      //2.将数据加入到表格中
+      //创建行、插入元素
+      var tbody = document.getElementById("tbody");
+      for (var i = 0; i < datas.length; i++) {
+        //创建行，插入行
+        var trEle = document.createElement("tr");
+        tbody.appendChild(trEle);
+        //创建复选框的单元格
+        var tdSelect = document.createElement("td");
+        trEle.appendChild(tdSelect);
+        // 创建复选框，插入复选框
+        var inputEle = document.createElement("input");
+        inputEle.setAttribute("type", "checkbox");
+        // inputEle.setAttribute("id", "select_" + i);
+        // inputEle.setAttribute("data-index", i);
+        inputEle.setAttribute("class", "inputEle");
+        tdSelect.appendChild(inputEle);
+        //插入数据：每行的第二单元格、第三单元格、第四单元格
+        for (var j in datas[i]) {
+          //创建单元格，插入单元格
+          var tdEle = document.createElement("td");
+          tdEle.innerHTML = datas[i][j];
+          trEle.appendChild(tdEle);
+        }
+        //创建操作的单元格
+        var tdDel = document.createElement("td");
+        trEle.appendChild(tdDel);
+        // 创建删除操作，插入删除操作
+        var DelEle = document.createElement("button");
+        // DelEle.setAttribute("id", "del_" + i);
+        // DelEle.setAttribute("data-index", i);
+        DelEle.setAttribute("class", "DelEle");
+        DelEle.innerHTML = "删除";
+        tdDel.appendChild(DelEle);
+      }
+
+      //3.实现全选和全不选
+      //(1)点击全选按钮时，实现全选或者非全选
+      var selectA = document.getElementById("selectA");
+      var inputEles = document.getElementsByClassName("inputEle");
+      selectA.onclick = function () {
+        for (var i = 0; i < datas.length; i++) {
+          inputEles[i].checked = this.checked;
+        }
+      };
+
+      //(2)当非全选按钮全部选中或全部没有选中时，实现全选按钮全选或者非全选
+      for (var i = 0; i < datas.length; i++) {
+        inputEles[i].onclick = function () {
+          var flag = true;
+          for (var j = 0; j < datas.length; j++) {
+            if (inputEles[j].checked == false) {
+              flag = false;
+              break;
+            }
+          }
+          selectA.checked = flag;
+        };
+      }
+
+      //实现行删除操作
+      var DelEles = document.getElementsByClassName("DelEle");
+      for (var i = 0; i < datas.length; i++) {
+        DelEles[i].onclick = function () {
+          this.parentNode.parentNode.parentNode.removeChild(
+            this.parentNode.parentNode
+          );
+        };
+      }
+    </script>
+  </body>
+</html>
