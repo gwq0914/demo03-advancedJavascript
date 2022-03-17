@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <style>
+      table {
+        width: 500px;
+        border-spacing: 0;
+      }
+      table td {
+        border-bottom: 1px solid black;
+      }
+      img {
+        width: 100px;
+        position: absolute;
+        /* top: 0px;
+        left: 0px; */
+      }
+    </style>
+  </head>
+  <body>
+    <p>鼠标事件对象MouseEvent</p>
+    <table>
+      <tbody>
+        <tr>
+          <td>e.clientX</td>
+          <td>返回鼠标相对于浏览器窗口<strong>可视区</strong>的X坐标</td>
+        </tr>
+        <tr>
+          <td>e.clientY</td>
+          <td>返回鼠标相对于浏览器窗口<strong>可视区</strong>的Y坐标</td>
+        </tr>
+        <tr>
+          <td>e.pageX</td>
+          <td>返回鼠标相对于<strong>文档页面</strong>的X坐标IE9+支持</td>
+        </tr>
+        <tr>
+          <td>e.pageY</td>
+          <td>返回鼠标相对于<strong>文档页面</strong>的Y坐标IE9+支持</td>
+        </tr>
+        <tr>
+          <td>e.screenX</td>
+          <td>返回鼠标相对于电脑屏幕的X坐标</td>
+        </tr>
+        <tr>
+          <td>e.screenY</td>
+          <td>返回鼠标相对于电脑屏幕的Y坐标</td>
+        </tr>
+      </tbody>
+    </table>
+    <script>
+      document.addEventListener("click", function (e) {
+        //返回鼠标相对于浏览器窗口可视区的X坐标
+        console.log(e.clientX);
+        console.log(e.clientY);
+        console.log("------------------------");
+        //返回鼠标相对于文档页面的X坐标
+        console.log(e.pageX);
+        console.log(e.pageY);
+        console.log("------------------------");
+        //返回鼠标相对于电脑屏幕的坐标
+        console.log(e.screenX);
+        console.log(e.screenY);
+      });
+    </script>
+    <p>案例：跟随鼠标的天使</p>
+    <img src="images/鼠标宠物.png" alt="" />
+    <script>
+      var MousePet = document.querySelector("img");
+      document.addEventListener("mousemove", function (e) {
+        MousePet.style.left = e.pageX + "px";
+        MousePet.style.top = e.pageY + "px";
+      });
+    </script>
+  </body>
+</html>
