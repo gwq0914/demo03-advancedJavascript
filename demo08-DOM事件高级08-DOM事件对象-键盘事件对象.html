@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <style>
+      table {
+        width: 500px;
+        border-spacing: 0;
+      }
+      table thead th {
+        text-align: left;
+      }
+      table th,
+      table td {
+        border-bottom: 1px solid black;
+      }
+      /* 模拟京东快递单号查询 */        
+        .search {
+            position: relative;
+            width: 178px;
+            margin: 100px;
+        }
+        
+        .con {
+            display: none;
+            /* display: block; */
+            position: absolute;
+            top: -40px;
+            width: 171px;
+            border: 1px solid rgba(0, 0, 0, .2);
+            box-shadow: 0 2px 4px rgba(0, 0, 0, .2);
+            padding: 5px 0;
+            font-size: 18px;
+            line-height: 20px;
+            color: #333;
+        }
+        
+        .con::before {
+            content: '';
+            width: 0;
+            height: 0;
+            position: absolute;
+            top: 28px;
+            left: 18px;
+            border: 8px solid #000;
+            border-style: solid dashed dashed;
+            border-color: #fff transparent transparent;
+        }
+    </style>
+    </style>
+  </head>
+  <body>
+    <p>键盘事件</p>
+    <table>
+      <thead>
+        <tr>
+          <th>键盘事件</th>
+          <th>触发条件</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>keyup</td>
+          <td>键盘弹起时触发</td>
+        </tr>
+        <tr>
+          <td>keydown</td>
+          <td>键盘按下时触发：区分功能键</td>
+        </tr>
+        <tr>
+          <td>keypress</td>
+          <td>键盘按下时触发：区分大小写</td>
+        </tr>
+      </tbody>
+    </table>
+    执行顺序时：keydown->keypress->keyup
+    <script>
+      document.addEventListener("keyup", function () {
+        console.log("我弹起了");
+      });
+      document.addEventListener("keydown", function () {
+        console.log("我按下键盘：down");
+      });
+      document.addEventListener("keypress", function () {
+        console.log("我按下键盘：press");
+      });
+    </script>
+
+    <p>案例：模拟京东按键输入内容：用户按下了s 键，可以在搜索框中写东西</p>
+    <input type="text" />
+    <script>
+      // 核心思路： 检测用户是否按下了s 键，如果按下s 键，就把光标定位到搜索框里面
+      // 使用键盘事件对象里面的keyCode 判断用户按下的是否是s键
+      // 搜索框获得焦点： 使用 js 里面的 focus() 方法
+      var search = document.querySelector("input");
+      document.addEventListener("keyup", function (e) {
+        // console.log(e.keyCode);
+        if (e.keyCode === 83) {
+          search.focus();
+        }
+      });
+    </script>
+
+
+    <p>案例:模拟京东快递单号查询</p>
+    <p>要求：当我们在文本框中输入内容时，文本框上自动显示大字号的内容</p>
+    <div class="search">
+      <div class="con">123</div>
+      <input type="text" placeholder="请输入您的快递单号" class="jd">
+  </div>
+  <script>
+      // 快递单号输入内容时， 上面的大号字体盒子（con）显示(这里面的字号更大）
+      // 表单检测用户输入： 给表单添加键盘事件
+      // 同时把快递单号里面的值（value）获取过来赋值给 con盒子（innerText）做为内容
+      // 如果快递单号里面内容为空，则隐藏大号字体盒子(con)盒子
+      var con = document.querySelector('.con');
+      var jd_input = document.querySelector('.jd');
+      jd_input.addEventListener('keyup', function() {
+              // console.log('输入内容啦');
+              if (this.value == '') {
+                  con.style.display = 'none';
+              } else {
+                  con.style.display = 'block';
+                  con.innerText = this.value;
+              }
+          })
+          // 当我们失去焦点，就隐藏这个con盒子
+      jd_input.addEventListener('blur', function() {
+              con.style.display = 'none';
+          })
+          // 当我们获得焦点，就显示这个con盒子
+      jd_input.addEventListener('focus', function() {
+          if (this.value !== '') {
+              con.style.display = 'block';
+          }
+      })
+  </script>
+  </body>
+</html>
