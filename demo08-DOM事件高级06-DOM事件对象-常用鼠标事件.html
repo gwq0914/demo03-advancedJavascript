@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <p>常用鼠标事件</p>
+    <p>
+      1.禁止鼠标右键菜单
+      <br />
+      document.addEventListener("contextmenu",<br />
+      function (e) {<br />
+      e.preventDefault();<br />
+      });<br />主要控制应该何时显示上下文菜单，主要用于程序员取消默认的上下文菜单<br />
+      contextmenu鼠标右击事件，preventDefault()阻止默认行为的方法
+    </p>
+    <script>
+      document.addEventListener("contextmenu", function (e) {
+        e.preventDefault();
+      });
+    </script>
+    <p>2.禁止鼠标选中(selectstart 开始选中)</p>
+    <script>
+      document.addEventListener("selectstart", function (e) {
+        e.preventDefault();
+      });
+    </script>
+  </body>
+</html>
