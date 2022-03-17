@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <style>
+        div{
+            margin: 0;
+            padding: 0;
+        }
+        .father{
+            width: 250px;
+            height: 250px;
+            background-color: yellowgreen;
+            position: relative;
+            
+        }
+        .son{
+            width: 50px;
+            height: 50px;
+            background-color: green;
+            position:absolute;
+            top: 100px;
+            left: 100px;
+        }
+    </style>
+  </head>
+  <body>
+    <p>
+      DOM事件流描述的时从页面中接收事件的顺序。
+      <br />
+      事件发生时会在元素节点之间按照特定的顺序传播，这个传播过程即DOM事件流。
+      <br />
+      <img src="images/DOM事件流.JPG" alt="DOM事件流" />
+      <br>
+      <ul>
+          <li>事件冒泡：IE最早提出，事件开始时由最具体的元素接收，然后逐句向上传播到DOM最顶层节点的过程。</li>
+          <li>事件捕获：网景最早提出，由DOM最顶层节点开始，然后逐级向下传播到最具体的元素接收的过程。</li>
+      </ul>
+    </p>
+    <div class="father">
+        <div class="son"></div>
+    </div>
+    <p>实际开发中我们很少使用捕获，更关注事件冒泡<br>
+    有些事件是没有冒泡的，比如onblur、onfocus、onmouseenter、onmouseleave</p>
+    <script>
+        // dom 事件流三个阶段：
+        // 1.js代码中只能执行捕获或者冒泡其中的一个阶段
+        // 2.onclick和attachEvent(ie)只能得到冒泡阶段。
+        // 3.捕获阶段 addEventListener 默认为false 第三个参数时true 那么则处于捕获阶段 document->body->father->son
+        var son = document.querySelector('.son');
+        var father = document.querySelector('.father');
+        //捕获
+        son.addEventListener('click',function(){alert('son')},true);
+        father.addEventListener('click',function(){alert('father')},true);
+        //冒泡
+        son.addEventListener('click',function(){alert('son')},false);
+        father.addEventListener('click',function(){alert('father')},false);
+
+    </script>
+  </body>
+</html>
