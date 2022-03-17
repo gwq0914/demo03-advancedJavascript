@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <style>
+      div {
+        width: 100px;
+        height: 100px;
+        background-color: peru;
+        margin-top: 10px;
+      }
+      table {
+        border-top: 1px solid black;
+        border-left: 1px solid black;
+        border-spacing: 0;
+      }
+      table th td,
+      table tr td {
+        border-right: 1px solid black;
+        border-bottom: 1px solid black;
+      }
+      ul {
+        background: papayawhip;
+      }
+      .father {
+        width: 250px;
+        height: 250px;
+        background-color: yellowgreen;
+        position: relative;
+      }
+      .son {
+        width: 50px;
+        height: 50px;
+        background-color: green;
+        position: absolute;
+        top: 100px;
+        left: 100px;
+      }
+    </style>
+  </head>
+  <body>
+    <p>
+      事件对象<br />
+      1.event就是一个事件对象 写在监听函数的小括号中，当形参来看 代表事件的状态
+      <br />
+      2.事件对象只有有了事件才会存在，它是系统给我们自动创建的，不需要我们传递参数<br />
+      3.事件对象 是我们事件的一系列相关数据的集合 跟事件相关的<br />
+      比如鼠标点击里面包含了鼠标的相关信息，鼠标坐标，如果是键盘时间里面，就包含的键盘事件的信息，比如用户按下了哪个键<br />
+      4.事件对象是可以自己命名，比如event、evt、e<br />
+      5.事件对象有兼容性问题 ie678 通过window.event来解决
+    </p>
+    <div>event</div>
+    <div>event</div>
+    <div>event</div>
+    <script>
+      var divs = document.querySelectorAll("div");
+      divs[0].onclick = function (event) {
+        console.log(event);
+      };
+      divs[1].addEventListener("click", function (e) {
+        console.log(e);
+      });
+      //各个浏览器都可以
+      divs[2].onclick = function (e) {
+        e = e || window.event;
+        console.log(e);
+      };
+    </script>
+    事件对象的属性和方法
+    <table>
+      <thead>
+        <tr>
+          <td>事件对象属性方法</td>
+          <td>说明</td>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>e.target</td>
+          <td>返回触发事件的对象 标准</td>
+        </tr>
+        <tr>
+          <td>e.srcElement</td>
+          <td>返回触发事件的对象 非标准 ie678使用</td>
+        </tr>
+        <tr>
+          <td>e.type</td>
+          <td>返回事件的类型 比如 click mouseover 不带on</td>
+        </tr>
+        <tr>
+          <td>e.cancelBubble</td>
+          <td>该属性阻止冒泡 非标准 ie678使用</td>
+        </tr>
+        <tr>
+          <td>e.returnValue</td>
+          <td>
+            该属性 阻止默认事件（默认行为） 非标准 ie678使用 比如不让链接跳转
+          </td>
+        </tr>
+        <tr>
+          <td>e.preventDefault()</td>
+          <td>该方法 阻止默认事件（默认行为）标准 比如不让链接跳转</td>
+        </tr>
+        <tr>
+          <td>e.stopPropagation</td>
+          <td>阻止冒泡 标准</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <!-- 常见事件对象的属性和方法 e.target 和 e.srcElement 返回触发的事件对象 -->
+    <ul>
+      <li>1</li>
+      <li>2</li>
+      <li>3</li>
+    </ul>
+    <div class="target">target</div>
+    <script>
+      //常见事件对象的属性和方法 e.target 和 e.srcElement 返回触发的事件对象
+      // 1.e.target 返回的是触发事件的对象（元素） this 返回的是绑定事件的对象（元素）
+      var ul = document.querySelector("ul");
+      ul.addEventListener("click", function (e) {
+        console.log(e.target);
+        //e.target 指向我们点击的那个对象 谁触发了这个事件 点击的是li e.target 指向的是li
+        console.log(this);
+        //给ul绑定了事件 那么this就指向ul
+      });
+      //兼容性问题
+      var target = document.querySelector(".target");
+      target.onclick = function (e) {
+        e = e || window.event;
+        var target = e.target || e.srcElement;
+        console.log(target);
+      };
+    </script>
+
+    <!-- 常见事件对象的属性和方法 e.type 返回事件类型 -->
+    <div class="type">type</div>
+    <script>
+      //常见事件对象的属性和方法 e.type 返回事件类型
+      var type = document.querySelector(".type");
+      type.addEventListener("click", fn);
+      type.addEventListener("mouseover", fn);
+      type.addEventListener("mouseout", fn);
+      function fn(e) {
+        console.log(e.type);
+      }
+    </script>
+
+    <!-- 常见事件对象的属性和方法 让链接不跳转 按钮不提交 e.preventDefault-->
+    <a href="http://www.baidu.com">百度</a>
+    <a class="preventDefault" href="http://www.baidu.com"
+      >百度(添加了preventDefault())</a
+    >
+    <form action="http://www.baidu.com">
+      <input class="preventDefault" type="submit" value="提交" name="sub" />
+    </form>
+    <script>
+      // 常见事件对象的属性和方法 让链接不跳转 按钮不提交
+      var preventDefault = document.querySelector("a");
+      preventDefault.addEventListener("click", function (e) {
+        e.preventDefault();
+      });
+      preventDefault.onclick = function (e) {
+        e.preventDefault();
+        e.returnValue;
+        return false; //没有兼容性问题，但是return后面的语句不执行而且只限于传统的注册方式
+      };
+    </script>
+
+    <!-- 常见事件对象的属性和方法 阻止冒泡-->
+    <div class="father">
+      <div class="son"></div>
+    </div>
+    <script>
+      var son = document.querySelector(".son");
+      var father = document.querySelector(".father");
+      son.addEventListener("click", function (e) {
+        alert("son");
+        e.stopPropagation(); //stop停止 propagation 传播
+        e.cancelBubble = true; //cancel取消 bubble泡泡
+      });
+      father.addEventListener("click", function () {
+        alert("father");
+      });
+      //兼容性
+      if (e && e.stopPropagation) {
+        e.stopPropagation();
+      } else {
+        window.event.cancelBubble = true;
+      }
+    </script>
+  </body>
+</html>
