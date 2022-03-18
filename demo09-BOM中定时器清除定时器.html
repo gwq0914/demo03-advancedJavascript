@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <style>
+      .ad {
+        float: right;
+        display: block;
+      }
+      .JD_countDown {
+        width: 200px;
+        height: 130px;
+        background-color: rgb(255, 145, 81);
+        padding: 35px;
+        margin: 20px;
+      }
+      .JD_countDown .JD {
+        font-size: 50px;
+        text-align: center;
+        color: white;
+        margin-bottom: 10px;
+      }
+      .JD_countDown .tip {
+        font-size: 15px;
+        color: white;
+        text-align: center;
+        margin-bottom: 15px;
+      }
+      .JD .countDown {
+        height: 50px;
+      }
+      .countDown .h,
+      .countDown .m,
+      .countDown .s {
+        width: 30px;
+        height: 30px;
+        line-height: 30px;
+        background-color: black;
+        color: white;
+        text-align: center;
+        display: inline-block;
+        margin-left: 12px;
+        margin-right: 10px;
+      }
+    </style>
+  </head>
+  <body>
+    <p>
+      <strong>设置定时器1</strong>
+      <br />
+      setTimeout<br />
+      语法规范：window.setTimeout(调用函数，延时时间);<br />
+      (1)这个window在调用的时候可以省略<br />
+      (2)这个延长时间单位是毫秒 但是可以省略 如果省略默认是0<br />
+      (3) 这个调用函数可以直接写函数 还可以写函数名<br />
+      (4)页面中可能由很多定时器，我们经常给定时器加标识符（名字）<br />
+    </p>
+    <script>
+      function callback() {
+        alert("爆炸啦~");
+      }
+      var time1 = setTimeout(callback, 2000);
+      var time2 = setTimeout("callback()", 15000);
+    </script>
+    <p>案例：五秒钟自动关闭的广告</p>
+    <div class="ad"><img src="images/ad.JPG" alt="广告" /></div>
+    <script>
+      var ad = document.querySelector("img");
+
+      var time3 = setTimeout(function advertisementClose() {
+        ad.style.display = "none";
+      }, 10000);
+    </script>
+    <p>
+      <strong>停止定时器1</strong><br />
+      clearTimeout(timeoutID);
+    </p>
+    <p>案例：点击按钮之后可以不弹出'爆炸~'</p>
+    <button class="stop-btn">停止爆炸</button>
+    <script>
+      var stopBtn = document.querySelector(".stop-btn");
+      stopBtn.addEventListener("click", function () {
+        console.log("点击了按钮");
+        this.disabled = "false";
+        clearTimeout(time2);
+      });
+      clearTimeout(time1);
+    </script>
+    <p>
+      <strong>设置定时器2</strong>
+      <br />
+      window.setInterval(回调函数,[间隔的毫秒数]);
+      <br />该方法重复调用一个函数，每隔这个时间，就去调用一次回调函数。<br />
+      注意：<br />
+      1.window可以省略<br />
+      2.这个调用函数可以直接写函数，或者写函数名或者采取字符串'函数名()'三种形式<br />
+      3.间隔的毫秒数省略默认是0，如果写，必须是毫秒数，表示每隔多少毫秒就自动调用这个函数<br />
+      4.因为定时器可能有很多，所以经常给定时器赋值一个标识符
+    </p>
+    <div class="timeShow" style="float: left"></div>
+    <span
+      class="timeClose"
+      style="cursor: pointer; border: 1px solid black; float: left"
+    >
+      关闭
+    </span>
+    <script>
+      var timeShow = document.querySelector(".timeShow");
+      var timeClose = document.querySelector(".timeClose");
+      var timeNow = setInterval(function () {
+        var x = new Date();
+        timeShow.innerHTML = "现在的时间是：" + x;
+      }, 1000);
+      timeClose.addEventListener("click", function () {
+        clearInterval(timeNow);
+        timeShow.style.display = "none";
+        timeClose.style.display = "none";
+        console.log("interval定时器关闭");
+      });
+    </script>
+    <br />
+    <p>案例：京东倒计时</p>
+    <div class="JD_countDown">
+      <div class="JD">京东</div>
+      <div class="tip">本场距离活动结束还剩：</div>
+      <div class="countDown">
+        <!-- <span class="d"></span> -->
+        <span class="h"></span>
+        <span>:</span>
+        <span class="m"></span>
+        <span>:</span>
+        <span class="s"></span>
+      </div>
+    </div>
+    <br /><br />
+    <button class="countDownShowIntervalStop">取消倒计时</button>
+    <script>
+      // var day = document.querySelector(".d");
+      var hour = document.querySelector(".h");
+      var minute = document.querySelector(".m");
+      var second = document.querySelector(".s");
+      var countDownShowIntervalStop = document.querySelector(
+        ".countDownShowIntervalStop"
+      );
+
+      var countDownShowInterval = setInterval(function () {
+        var nowTime = +new Date();
+        var aimTime = +new Date("2022-3-19 0:0:0");
+        // var aimTime = +new Date(time);
+        var countDownTime = (aimTime - nowTime) / 1000;
+
+        // day.innerHTML = String(
+        //   parseInt(countDownTime / 60 / 60 / 24) >= 10
+        //     ? parseInt(countDownTime / 60 / 60 / 24)
+        //     : "0" + parseInt(countDownTime / 60 / 60 / 24)
+        // );
+
+        hour.innerHTML = String(
+          parseInt((countDownTime / 60 / 60) % 24) >= 10
+            ? parseInt((countDownTime / 60 / 60) % 24)
+            : "0" + parseInt((countDownTime / 60 / 60) % 24)
+        );
+        minute.innerHTML = String(
+          parseInt((countDownTime / 60) % 60) >= 10
+            ? parseInt((countDownTime / 60) % 60)
+            : "0" + parseInt((countDownTime / 60) % 60)
+        );
+        second.innerHTML = String(
+          parseInt(countDownTime % 60) >= 10
+            ? parseInt(countDownTime % 60)
+            : "0" + parseInt(countDownTime % 60)
+        );
+      }, 1000);
+
+      countDownShowIntervalStop.addEventListener("click", function () {
+        clearInterval(countDownShowInterval);
+      });
+    </script>
+
+    <p>
+      <strong>清除定时器2</strong>
+      <br />
+      window.clearInterval(intervalID);
+      <br />该方法取消了先前通过调用setInterval()建立的定时器<br />
+      注意：<br />
+      1.window可以省略<br />
+      2.里面的参数就是定时器的标识符<br />
+      3.间隔的毫秒数省略默认是0，如果写，必须是毫秒数，表示每隔多少毫秒就自动调用这个函数<br />
+      4.因为定时器可能有很多，所以经常给定时器赋值一个标识符
+    </p>
+    <div>
+      <div class="begin">开启定时器</div>
+      <div class="stop">停止定时器</div>
+    </div>
+    <script>
+      var begin = document.querySelector(".begin");
+      var stop = document.querySelector(".stop");
+      var time4 = null;
+      begin.addEventListener("click", function () {
+        time4 = setInterval(function () {
+          console.log("hi~");
+        }, 1000);
+      });
+      stop.addEventListener("click", function () {
+        clearInterval(time4);
+      });
+    </script>
+  </body>
+</html>
