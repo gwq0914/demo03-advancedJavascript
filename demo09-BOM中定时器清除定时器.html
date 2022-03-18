@@ -208,5 +208,45 @@
         clearInterval(time4);
       });
     </script>
+    <p>发送短信案例</p>
+    <button class="sendout">发送</button>
+    <script>
+      var sendout = document.querySelector(".sendout");
+
+      var time5 = null; //声明定时器
+      sendout.addEventListener("click", function () {
+        //点击按钮之后，定时器开启
+        var btnTime = 5;
+        var time5 = setInterval(function () {
+          if (btnTime > 0) {
+            console.log(btnTime);
+            sendout.disabled = true;
+            sendout.innerHTML = "还剩" + btnTime + "秒再次点击";
+            btnTime = btnTime - 1;
+          } else {
+            clearInterval(time5);
+            console.log("清除");
+            sendout.disabled = false;
+            sendout.innerHTML = "发送";
+          }
+        }, 1000);
+      });
+
+      // var time = 5;
+      // sendout.addEventListener("click", function () {
+      //   sendout.disabled = true;
+      //   var time6 = setInterval(function () {
+      //     if (time == 0) {
+      //       clearInterval(time);
+      //       sendout.innerHTML = "发送";
+      //       sendout.disabled = false;
+      //       time = 5;
+      //     } else {
+      //       sendout.innerHTML = "剩下" + time + "秒";
+      //       time--;
+      //     }
+      //   }, 1000);
+      // });
+    </script>
   </body>
 </html>
