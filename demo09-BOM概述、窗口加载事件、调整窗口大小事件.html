@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <style>
+      table {
+        width: 800px;
+        border-top: 1px solid black;
+        border-left: 1px solid black;
+        border-spacing: 0;
+      }
+      table th,
+      table td {
+        border-right: 1px solid black;
+        border-bottom: 1px solid black;
+      }
+    </style>
+    <script>
+      window.onload = function () {
+        var btn = document.querySelector("button");
+        btn.onclick = function () {
+          alert("文档加载之后触发了我！传统方法");
+        };
+      };
+      window.addEventListener("load", function () {
+        var btn = document.querySelector("button");
+        btn.addEventListener("click", function () {
+          alert("文档加载之后触发了我！addEventListener方法注册事件");
+        });
+      });
+      window.onload = function () {
+        alert(11);
+      };
+      document.addEventListener("DOMConteLoaded", function () {
+        alert(33);
+      });
+      //load等页面内容全部加载完毕，包含页面dom元素图片flash css 等等
+      //DOMContentLoaded 是DOM加载完毕，不包括图片 flash css 等就可以执行 加载速度比load更快一些
+    </script>
+  </head>
+  <body>
+    <p>
+      BOM(Browser Object
+      Model)即浏览器对象模型，它提供了独立于内容而与浏览器窗口进行交互的对象，其核心对象是window。<br />
+      BOM由一系列相关的对象构成，并且每个对象都提供了很多方法和属性。
+      <br />
+      BOM缺乏标准，javascript语法的标准化组织ECMA，DOM的标准化组织是W3C，BOM最初是Netcape浏览器标准的一部分
+    </p>
+    <table>
+      <thead>
+        <tr>
+          <th>DOM</th>
+          <th>BOM</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>文档对象模型</td>
+          <td>浏览器对象</td>
+        </tr>
+        <tr>
+          <td>DOM就是把文档当作一个对象来看待</td>
+          <td>BOM就是把浏览器当作对象来看待</td>
+        </tr>
+        <tr>
+          <td>DOM的顶级对象是document</td>
+          <td>BOM的顶级对象是window</td>
+        </tr>
+        <tr>
+          <td>DOM主要学习的是操作页面元素</td>
+          <td>BOM学习的是浏览器窗口交互的一些对象</td>
+        </tr>
+        <tr>
+          <td>DOM是W3C规范</td>
+          <td>BOM是浏览器厂商在各自浏览器上定义的，兼容性较弱</td>
+        </tr>
+      </tbody>
+    </table>
+    <p>
+      BOM的构成：BOM比DOM更大，它包含DOM。<br />
+      window下面分着document,location,navigation,screen,history
+    </p>
+    <p>
+      window对象是浏览器的顶级对象，它具有双重角色。<br />
+      1.它是js访问浏览器的一个接口。<br />
+      2.它是一个全局对象。定义在全局作用域中的变量、函数都会变成window对象的属性和方法。<br />
+      在调用的时候可以省略window,前面的对话框都属于window对象方法，如alert()、prompt()等。<br />
+      注意：window下的一个特殊属性window.name
+    </p>
+    <script>
+      var num = 10;
+      console.log(window.num);
+      function fn() {
+        console.log(11);
+      }
+      fn();
+      window.fn();
+      console.dir(window); //查看window对象的属性和方法
+    </script>
+    <p style="font-size: larger">window对象的常见事件</p>
+    <p style="font-size: large">窗口加载事件</p>
+    <button>点击</button>
+    <script>
+      var btn = document.querySelector("button");
+      btn.addEventListener("click", function () {
+        alert("！ 你点我!");
+      });
+    </script>
+    <p>
+      (1) window.onload =
+      function(){}或者window.addEventListener("load",function(){});<br />
+      window.onload是窗口（页面）加载事件，当文档内容完全加载完成会触发该事件（包括图像、脚本文件、css文件等），就调用的处理函数。
+      <br />
+      注意：<br />
+      1.有了window.onload
+      就可以把js代码写道页面元素的上方，因为onload是等页面内容全部加载完毕，再去执行处理函数。
+      <br />
+      2.window.onload传统注册事件方式只能写一次，如果由多个，会以最后一个window.onload为准。
+      3.如果使用addEventListener则没有限制
+    </p>
+    <p>
+      (2)document.addEventListener('DOMContentLoaded',function(){})<br />
+      DOMContentLoaded事件触发时，仅当DOM加载完成，不包括样式表，图片，flash等等。ie9以上才支持
+      <br />
+      如果页面的图片很多的话，从用户访问到onload触发可能需要较长的时间，交互效果就不能实现，必须影响用户的体验，此时用DOMContentLoaded事件比较合适。
+    </p>
+
+    <p style="font-size: large">调整窗口大小事件</p>
+    <p>
+      window.onresize = function(){}
+      <br />
+      window.addEventListener('resize',function(){});
+      <br />
+      window.onresize是调整窗口大小加载事件，当触发时就调用处理的函数
+      <br />
+      注意：<br />
+      1.只要窗口大小发生像素变化，就会触发这个事件<br />
+      2.我们经常利用这个事件完成响应式布局，window.innerWindth当前屏幕的宽度
+    </p>
+    <script>
+      window.addEventListener("resize", function () {
+        console.log(window.innerWidth);
+      });
+    </script>
+    <div
+      style="width: 200px; height: 200px; background-color: blanchedalmond"
+      class="data-div"
+    ></div>
+    <script>
+      var div = document.querySelector(".data-div");
+      console.log(div);
+      window.addEventListener("resize", function () {
+        if (window.innerWidth <= 800) {
+          div.style.display = "none";
+        } else {
+          div.style.display = "block";
+        }
+      });
+    </script>
+  </body>
+</html>
