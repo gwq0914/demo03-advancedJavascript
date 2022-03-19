@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <p>
+      操作元素：操作元素内容，innerHTML和innerText。操作常见元素结构属性，src,title,alt,href。操作表单元素属性，type,value,checked,disabled。操作元素样式属性，style,className。
+    </p>
+    <br />
+    <p>世纪佳缘 用户名显示隐藏内容</p>
+    <div id="SJform">
+      <label for="SJinputText">用户：</label>
+      <input
+        type="text"
+        id="SJinputText"
+        value="邮箱/ID/手机号"
+        style="color: #999"
+      />
+      <br /><br />
+      <label for="SJinputPwd">密码：</label>
+      <input type="password" id="SJinputPwd" />
+      <p id="message"></p>
+    </div>
+    <script>
+      var SJinputText = document.getElementById("SJinputText");
+      var SJinputPwd = document.getElementById("SJinputPwd");
+      var message = document.getElementById("message");
+      SJinputText.onblur = function () {
+        if (this.value == "") {
+          this.value = "邮箱/ID/手机号";
+          this.style.border = "1px solid rgb(155,155,155)";
+          this.style.outline = "1px solid rgb(155,155,155)";
+        }
+      };
+      SJinputText.onfocus = function () {
+        if (this.value == "邮箱/ID/手机号") {
+          this.value = "";
+          this.style.outline = "2px solid pink";
+          this.style.border = 0;
+        }
+      };
+    </script>
+  </body>
+</html>
