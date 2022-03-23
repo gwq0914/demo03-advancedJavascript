@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <style>
+      table {
+        border-top: 1px solid black;
+        border-left: 1px solid black;
+        border-spacing: 0;
+      }
+      table tr td {
+        border-right: 1px solid black;
+        border-bottom: 1px solid black;
+      }
+    </style>
+  </head>
+  <body>
+    <p>
+      location对象：是window对象给我们提供了一个location属性用于获取或设置窗体的URL，并且可以用于解析URL，因为这个属性返回的是一个对象，所以我们将这个属性也称为location对象
+    </p>
+    <br />
+    <p>
+      URL:统一资源定位符，是互联网上标准资源的地址。互联网上的每个文件都有一个唯一的URL，它包含的信息指出文件的位置以及浏览器应该怎么处理它。
+      <br />
+      url的一般语法格式为：protocol://host[:port]/path/[?query]#fragment
+      <br />
+      http://www.itcast.cn/index.html?name=andy&age=18#link
+    </p>
+    <table>
+      <thead>
+        <tr>
+          <td>组成</td>
+          <td>说明</td>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>protocol</td>
+          <td>通信协议 常用http,ftp,maito等</td>
+        </tr>
+        <tr>
+          <td>host</td>
+          <td>主机（域名）www.baidu.com</td>
+        </tr>
+        <tr>
+          <td>port</td>
+          <td>端口号 可选，省略时使用方案的默认端口 如http的默认端口为80</td>
+        </tr>
+        <tr>
+          <td>path</td>
+          <td>
+            路径
+            由零个或多个'/'符号隔开的字符串，一般用来表示主机上的一个目录或文件地址
+          </td>
+        </tr>
+        <tr>
+          <td>query</td>
+          <td>参数 以键值对的形式通过&符号分隔开来</td>
+        </tr>
+        <tr>
+          <td>fragment</td>
+          <td>片段 #后面内容常见于链接 锚点</td>
+        </tr>
+      </tbody>
+    </table>
+    <p>
+      案例：假设淘宝页面跳转错误，五秒之后将页面跳转到淘宝首页，点击按钮之后不跳转
+    </p>
+    <button class="targetBtn">不跳转页面</button>
+    <div class="targetTip"></div>
+    <script>
+      var targetBtn = document.querySelector(".targetBtn");
+      var targetTip = document.querySelector(".targetTip");
+      var timer = null;
+      // 方法二：
+      if (location.href != "http://www.taobao.com") {
+        var i = 5;
+        var timer = setInterval(function () {
+          targetTip.innerHTML = i + "秒后跳转页面！";
+          i--;
+          if (i == 0) {
+            clearInterval(timer);
+            location.href = "http://www.taobao.com";
+          }
+        }, 1000);
+      }
+      targetBtn.addEventListener("click", function () {
+        clearInterval(timer);
+      });
+      //方法一：
+      // targetBtn.addEventListener("click", function () {
+      //   location.href = "http://www.taobao.com";
+      // });
+      // var timer = 5;
+      // setInterval(function () {
+      //   if (timer == 0) {
+      //     location.href = "http://www.taobao.com";
+      //   } else {
+      //     targetTip.innerHTML = "您将再" + timer + "秒之后跳转到页面";
+      //     timer--;
+      //   }
+      // }, 1000);
+    </script>
+    <p>获取URL参数</p>
+    <p>通过两个页面传递参数</p>
+    <a href="login.html">这里点击查看</a>
+    <br />
+    <br />
+    <br />
+    <table>
+      <tr>
+        <td>location对象方法</td>
+        <td>返回值</td>
+      </tr>
+      <tr>
+        <td>location.assign()</td>
+        <td>
+          跟href一样，可以跳转页面（也可以称为重定向页面），可以实现后退功能
+        </td>
+      </tr>
+      <tr>
+        <td>location.replace()</td>
+        <td>替换当前页面，因为不记录历史，所以不能后退页面</td>
+      </tr>
+      <tr>
+        <td>location.reload()</td>
+        <td>
+          重新加载页面，相当于刷新按钮或者F5 如果参数为true强制刷新 ctrl+F5
+        </td>
+      </tr>
+    </table>
+  </body>
+</html>

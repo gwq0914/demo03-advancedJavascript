@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <p>欢迎您！</p>
+    <script>
+      var p = document.querySelector("p");
+      var params = location.search.substr(1).split("&");
+      var paramsArr = [];
+      for (var k in params) {
+        paramsArr[length++] = params[k].split("=");
+      }
+      for (var k in paramsArr) {
+        p.innerHTML +=
+          "<br /><br />" + paramsArr[k][0] + ":" + paramsArr[k][1] + "<br />";
+      }
+    </script>
+  </body>
+</html>
