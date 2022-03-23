@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <p>
+      navigator对象包含有关浏览器的信息，它有很多属性，我们最常用的是userAgent,该属性可以返回由客户机发送服务器的user-agent头部的值。
+      下面前端代码可以判断用户那个终端打开页面，实现跳转<br /><br />
+      if（navigator.userAgent.match(/(phone|pad|pod|iPhone|Ipod|ios|iPad|Android|Mobile|BlackBerry|IEMobile|MQQBrowser|JUC|Fennec|WOSBrowser|BrowserNG|WebOS|Symbian|Windows
+      phone)/i))){<br />
+      window.location.href = "";//手机<br />
+      }else{<br />
+      window.location.href = "";//电脑<br />
+      }<br />
+    </p>
+  </body>
+</html>
