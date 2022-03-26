@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <p>这是第二页</p>
+    <a href="demo12-window的对象04-history对象-实例-index1.html"
+      >点击前往第一页</a
+    ><br /><br />
+
+    <button>使用history.back()返回第一页</button>
+    <br /><br />
+    <button>使用history.go()返回第一页</button>
+    <script>
+      var btn = document.getElementsByTagName("btn");
+      btn[0].addEventListener("click", function () {
+        history.back();
+      });
+      btn[1].addEventListener("click", function () {
+        history.go(-1);
+      });
+    </script>
+  </body>
+</html>
