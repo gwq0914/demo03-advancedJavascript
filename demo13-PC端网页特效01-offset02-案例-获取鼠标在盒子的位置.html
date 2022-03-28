@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <style>
+      * {
+        margin: 0px;
+      }
+      .box {
+        width: 200px;
+        height: 511px;
+        padding: 100px;
+        background-image: url(images/pic.jpg);
+        margin: 200px;
+        position: relative;
+        float: left;
+      }
+      span {
+        display: block;
+        float: left;
+        margin: 200px;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="box"></div>
+    <span>坐标</span>
+
+    <script>
+      var box = document.querySelector(".box");
+      var span = document.querySelector("span");
+      box.addEventListener("mousemove", function (e) {
+        var leftRange = e.pageX - box.offsetLeft;
+        var topRange = e.pageY - box.offsetTop;
+        span.innerHTML = "(" + leftRange + " , " + topRange + ")";
+      });
+    </script>
+  </body>
+</html>

@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>放大镜</title>
+    <meta charset="utf-8" />
+  </head>
+  <style type="text/css">
+    * {
+      margin: 0px;
+      padding: 0px;
+    }
+    body {
+      margin: 40px auto;
+    }
+    div {
+      float: left;
+      margin-right: 10px;
+    }
+    #small {
+      position: relative;
+    }
+
+    #big {
+      width: 400px;
+      height: 400px;
+      overflow: hidden;
+      position: relative;
+      top: 20px;
+      border: 1px solid #eee;
+      border-radius: 4px;
+      display: none;
+    }
+    #big img {
+      width: 600%;
+    }
+    #focus {
+      position: absolute;
+      left: 0px;
+      top: 0px;
+    }
+    #move {
+      width: 100px;
+      height: 100px;
+      background: #000;
+      opacity: 0.4;
+      position: absolute;
+      display: none;
+      left: 0px;
+      top: 0px;
+    }
+  </style>
+
+  <body>
+    <div id="small">
+      <img src="images/pic.jpg" />
+      <div id="move"></div>
+    </div>
+    <h1>放大窗口</h1>
+    <div id="big">
+      <img src="images/pic.jpg" id="focus" />
+    </div>
+  </body>
+  <script type="text/javascript">
+    var move = document.getElementById("move");
+    var small = document.getElementById("small");
+    var big = document.getElementById("big");
+    var focus = document.getElementById("focus");
+    small.addEventListener("mousemove", function (event) {
+      event = event || window.event; //e的兼容性
+      this.style.cursor = "move";
+      // 计算移动小方块的left值
+      var move_left = event.clientX - this.offsetLeft - move.offsetWidth / 2;
+      // 计算移动小方块的top值
+      var move_top = event.clientY - this.offsetTop - move.offsetHeight / 2;
+      // 设置小方块不允许超出左边边界
+      move_left = move_left < 0 ? 0 : move_left;
+      //设置小方块不允许超出右边边界			计算方式是：盒子宽度-移动块的宽度=右边边界
+      move_left =
+        move_left > this.offsetWidth - move.offsetWidth
+          ? this.offsetWidth - move.offsetWidth
+          : move_left;
+      // 跟左右设置一样
+      move_top = move_top < 0 ? 0 : move_top;
+      move_top =
+        move_top > this.offsetHeight - move.offsetHeight
+          ? this.offsetHeight - move.offsetHeight
+          : move_top;
+      // 修改移动小方块的left跟top值
+      move.style.left = move_left + "px";
+      move.style.top = move_top + "px";
+      var x =
+        (move_left / (small.offsetWidth - move.offsetWidth)) *
+        (focus.offsetWidth - big.offsetWidth);
+      var y =
+        (move_top / (small.offsetHeight - move.offsetHeight)) *
+        (focus.offsetHeight - big.offsetHeight);
+      // 修改图片定位
+      focus.style.left = -x + "px";
+      focus.style.top = -y + "px";
+    });
+    // 原图移入事件
+    small.addEventListener("mouseover", function () {
+      move.style.display = "block";
+      big.style.display = "block";
+    });
+    // 原图移出事件
+    small.addEventListener("mouseout", function () {
+      move.style.display = "none";
+      big.style.display = "none";
+    });
+  </script>
+</html>

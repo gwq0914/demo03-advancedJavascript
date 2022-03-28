@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <style>
+      table {
+        border-top: 1px solid black;
+        border-left: 1px solid black;
+        border-spacing: 0;
+      }
+      table tr td {
+        border-bottom: 1px solid black;
+        border-right: 1px solid black;
+      }
+      .father {
+        width: 400px;
+        height: 400px;
+        margin: 100px;
+        background-color: blanchedalmond;
+        position: relative;
+      }
+      .son {
+        width: 200px;
+        height: 200px;
+        margin-left: 200px;
+        background-color: orange;
+      }
+      .left,.right{
+        width: 500px;
+        padding: 100px;
+      }
+
+    </style>
+  </head>
+  <p>
+    <p>
+      offset：偏移量，使用offset系列相关属性可以动态的得到该元素的位置（偏移）、大小等。
+    </p>
+    <ul>
+      <li>获得元素距离带有定位父元素的位置</li>
+      <li>获得元素自身的大小（宽度高度）</li>
+      <li>注意：返回的数值都不带单位</li>
+    </ul>
+    <p>offset系列常用属性：</p>
+    <table>
+      <tr>
+        <td>offset系列属性</td>
+        <td>作用</td>
+      </tr>
+      <tr>
+        <td>element.offsetParent</td>
+        <td>
+          返回作为该元素<strong>带有定位</strong>的父级元素
+          如果父级都没有定位则返回body。<strong
+            >注意与element.parentNode区别：返回上一级元素节点</strong
+          >
+        </td>
+      </tr>
+      <tr>
+        <td>element.offsetTop</td>
+        <td>返回元素<strong>相对带有定位父元素</strong>上方的偏移量</td>
+      </tr>
+      <tr>
+        <td>element.offsetLeft</td>
+        <td>返回元素<strong>相对带有定位父元素</strong>左边框的偏移</td>
+      </tr>
+      <tr>
+        <td>element.offsetWidth</td>
+        <td>返回自身包括padding、边框、内容区的宽度，返回数值不带单位</td>
+      </tr>
+      <tr>
+        <td>element.offsetHeight</td>
+        <td>返回自身包括padding、边框、内容区的高度，返回数值不带单位</td>
+      </tr>
+    </table>
+    <!-- 举例： -->
+    <div class="father">
+      <div class="son"></div>
+    </div>
+    <script>
+      var father = document.querySelector(".father");
+      var son = document.querySelector(".son");
+      // 1.可以得到元素的偏移 位置 返回的不带单位的数值
+      console.log("使用father.offsetLeft："+father.offsetLeft);
+      //它以带有定位的父亲为准 如果没有父亲或者没有定位 以body为准
+      console.log("使用son.offsetLeft:"+son.offsetLeft);
+      // 2.可以得到元素的大小 宽度和高度 是包含padding + border + width
+      console.log("使用son.offsetWidth:"+son.offsetWidth);
+      console.log("使用son.offsetHeight:"+son.offsetHeight);
+      // 3.返回带有定位的父亲 否则返回的是body
+      console.log("使用son.offsetParent:");
+      console.log(son.offsetParent);
+      console.log("使用son.parentNode:");
+      console.log(son.parentNode);
+      //两者区别在于：offsetParent 返回的是带定位的父亲，如果没有就返回body
+      //parentNode 返回上一级
+    </script>
+
+    
+    <div>
+      <p style="text-indent: 40px;font-weight: 700;">offset和style的区别</p>
+      <div class="left" style="float: left;">
+        <ul>
+          <strong>offset</strong>
+          <li>offset可以得到任意样式表中的样式值</li>
+          <li>offset系列获得的数值是没有单位的</li>
+          <li>offsetWidth包含padding+border+width</li>
+          <li>offsetWidth等属性是只读属性，只能获取不能赋值</li>
+          <li style="color: red;">所以想要获取元素大小位置，用offset更合适</li>
+        </ul>
+      </div>
+      <div class="right" style="float: left;">
+        <ul>
+          <strong>style</strong>
+          <li>style只能得到行内样式表中的样式值</li>
+          <li>style.width获得的是带有单位的字符串</li>
+          <li>style.width获得不包含padding和border的值</li>
+          <li>style.width是可读写属性，可以获取也可以赋值</li>
+          <li style="color: red;">所以，我们想要给元素更改值，则需要用style改变</li>
+        </ul>
+      </div>
+    </div>
+    <script>
+      var left = document.querySelector('.left');
+      var right = document.querySelector('.right');
+      console.log("使用left.style.width:");
+      console.log(left.style.width);
+      console.log("使用left.offsetWidth:");
+      console.log(left.offsetWidth);
+    </script>
+  </body>
+</html>
