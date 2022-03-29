@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <link rel="stylesheet" href="" />
+    <style>
+      /* 基本样式 */
+      /*清除元素默认的内外边距  */
+      * {
+        margin: 0;
+        padding: 0;
+      }
+      /*让所有斜体 不倾斜*/
+      em,
+      i {
+        font-style: normal;
+      }
+      /*去掉列表前面的小点*/
+      li {
+        list-style: none;
+      }
+      /*图片没有边框   去掉图片底侧的空白缝隙*/
+      img {
+        border: 0; /*ie6*/
+        vertical-align: middle;
+      }
+      /*让button 按钮 变成小手*/
+      button {
+        cursor: pointer;
+      }
+      /*取消链接的下划线*/
+      a {
+        color: #666;
+        text-decoration: none;
+      }
+
+      a:hover {
+        color: #e33333;
+      }
+
+      button,
+      input {
+        font-family: "Microsoft YaHei", "Heiti SC", tahoma, arial,
+          "Hiragino Sans GB", \\5B8B\4F53, sans-serif;
+        /*取消轮廓线 蓝色的*/
+        outline: none;
+      }
+
+      body {
+        background-color: #fff;
+        font: 12px/1.5 "Microsoft YaHei", "Heiti SC", tahoma, arial,
+          "Hiragino Sans GB", \\5B8B\4F53, sans-serif;
+        color: #666;
+      }
+
+      .hide,
+      .none {
+        display: none;
+      }
+      /*清除浮动*/
+      .clearfix:after {
+        visibility: hidden;
+        clear: both;
+        display: block;
+        content: ".";
+        height: 0;
+      }
+
+      .clearfix {
+        *zoom: 1;
+      }
+      .w {
+        width: 980px;
+      }
+      /* 详情页样式 */
+      .detail {
+        margin: 100px auto 50px;
+      }
+      .content {
+        width: 400px;
+        position: relative;
+      }
+      .content img {
+        border: 1px solid #ccc;
+      }
+      .mask {
+        display: none;
+        width: 250px;
+        height: 250px;
+        background: #e2f380;
+        opacity: 0.5;
+        cursor: move;
+        position: absolute;
+        top: 0px;
+        left: 0px;
+      }
+      .big {
+        display: none;
+        width: 500px;
+        height: 500px;
+        position: absolute;
+        top: 0px;
+        left: 410px;
+        z-index: 999;
+        border: 1px solid #ccc;
+        overflow: hidden;
+      }
+      .big .bigImg {
+        width: 800px;
+        position: absolute;
+        top: 0px;
+        left: 0px;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="w detail">
+      <div class="content">
+        <img class="img" src="images/iphone.png" alt="iphone" />
+        <div class="mask"></div>
+        <div class="big">
+          <img class="bigImg" src="images/iphone.png" alt="" />
+        </div>
+      </div>
+    </div>
+    <script>
+      // 整个案例可以分为三个功能模块
+      // 1.鼠标经过小图片盒子，黄色的遮挡层和大图片盒子显示，离开隐藏两个盒子功能
+      var content = document.querySelector(".content");
+      var mask = document.querySelector(".mask");
+      var big = document.querySelector(".big");
+      content.addEventListener("mouseover", function () {
+        mask.style.display = "block";
+        big.style.display = "block";
+      });
+      content.addEventListener("mouseout", function () {
+        mask.style.display = "none";
+        big.style.display = "none";
+      });
+
+      // 2.黄色的遮挡层跟随鼠标功能
+      //   黄色的遮挡曾跟随鼠标的功能。把鼠标坐标给遮挡层不合适。因为遮挡曾坐标以父盒子为准。
+      content.addEventListener("mousemove", function (e) {
+        // 首先是获取鼠标在盒子的坐标，之后把数值给遮挡层作为left和top值，此时用到鼠标移动事件，但是还是在小图片盒子内移动。发现遮挡层位置不对，需要再减去盒子自身高度和宽度的一般。
+        var x = e.pageX - content.offsetLeft - mask.offsetWidth / 2;
+        var y = e.pageY - content.offsetTop - mask.offsetHeight / 2;
+        // 遮挡层不能超出小图片盒子范围。
+        // 如果小于零，就把坐标设置为0
+        // 如果大于遮挡层最大的移动距离，就把坐标设置为最大的移动距离。
+        // 遮挡层的最大移动距离：小图片盒子宽度减去遮挡层盒子宽度。
+        var x_max = content.offsetWidth - mask.offsetWidth;
+        var y_max = content.offsetHeight - mask.offsetHeight;
+        if (x <= 0) {
+          x = 0;
+        } else if (x >= x_max) {
+          x = x_max;
+        }
+        if (y <= 0) {
+          y = 0;
+        } else if (y >= y_max) {
+          y = y_max;
+        }
+        mask.style.left = x + "px";
+        mask.style.top = y + "px";
+        // console.log(content.offsetWidth);
+
+        // 3.移动黄色遮挡层，大图片跟随移动功能
+        //遮挡层的移动距离/遮挡层的最大移动距离 = 大图片的移动距离/大图片最大移动距离
+        //求大图片的移动距离
+        var bigImg = document.querySelector(".bigImg");
+        var big = document.querySelector(".big");
+        var bigX_max = bigImg.offsetWidth - big.offsetWidth;
+        var bigY_max = bigImg.offsetHeight - big.offsetWidth;
+        var bigX = (x * bigX_max) / x_max;
+        var bigY = (y * bigY_max) / y_max;
+        bigImg.style.left = -bigX + "px";
+        bigImg.style.top = -bigY + "px";
+      });
+    </script>
+  </body>
+</html>
