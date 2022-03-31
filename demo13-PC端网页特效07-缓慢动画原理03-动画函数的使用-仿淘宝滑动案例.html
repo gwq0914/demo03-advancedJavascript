@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <script src="animate.js"></script>
+    <style>
+      .slider-bar {
+        background: orange;
+        position: fixed;
+        top: 200px;
+        right: 0px;
+        width: 40px;
+        height: 40px;
+        text-align: center;
+        line-height: 40px;
+        cursor: pointer;
+        color: #fff;
+      }
+      .con {
+        background: orange;
+        position: absolute;
+        top: 0px;
+        left: 0px;
+        width: 200px;
+        height: 40px;
+        z-index: -1;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="slider-bar">
+      <span>←</span>
+      <div class="con">问题反馈</div>
+    </div>
+    <script>
+      //当鼠标经过sliderbar 就会让从 con这个盒子滑动到左侧
+      //当鼠标离开sliderbar 就会让从 con这个盒子滑动到右侧
+      var sliderBar = document.querySelector(".slider-bar");
+      var con = document.querySelector(".con");
+      sliderBar.addEventListener("mouseover", function () {
+        animate(con, -160, function () {
+          sliderBar.children[0].innerHTML = "x";
+        });
+        // this.children[0].innerHTML = "x";
+      });
+      sliderBar.addEventListener("mouseout", function () {
+        animate(con, 0);
+        this.children[0].innerHTML = "←";
+      });
+    </script>
+  </body>
+</html>
