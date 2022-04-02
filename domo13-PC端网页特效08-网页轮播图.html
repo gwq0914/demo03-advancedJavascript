@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>网页轮播图</title>
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        text-decoration: none;
+        color: rgb(77, 61, 61);
+      }
+      /* 轮播图框架 */
+      .focus {
+        width: 1100px;
+        height: 800px;
+        margin: 0px auto;
+        overflow: hidden;
+        position: relative;
+      }
+
+      /* 轮播图中左右侧箭头 */
+      .arrow-l {
+        display: none;
+        /* color: rgb(44, 44, 44); */
+        color: white;
+        font-size: 100px;
+        background: rgba(150, 120, 120, 0.2);
+        border-radius: 0% 150% 150% 0%;
+        position: absolute;
+        top: 250px;
+        left: 0px;
+      }
+      .arrow-r {
+        display: none;
+        /* color: rgb(44, 44, 44); */
+        color: white;
+        font-size: 100px;
+        background: rgba(150, 120, 120, 0.2);
+        border-radius: 150% 0% 0% 150%;
+        position: absolute;
+        top: 250px;
+        right: 0px;
+      }
+      /* 轮播图中的图片 */
+      .pic {
+        width: 1300%;
+        position: absolute;
+        left: 0;
+        top: 0;
+        z-index: -1;
+      }
+      .pic li {
+        list-style: none;
+        float: left;
+      }
+      .pic > li > a > img {
+        width: 1100px;
+        vertical-align: middle;
+      }
+      /* 轮播图中的小圆点 */
+      .circle {
+        position: absolute;
+        top: 600px;
+        right: 100px;
+      }
+      .circle li {
+        list-style: none;
+        float: left;
+        width: 10px;
+        height: 10px;
+        border: 1px solid rgb(77, 77, 77);
+        border-radius: 50%;
+        cursor: pointer;
+        background: white;
+        margin-right: 15px;
+      }
+      .circle .current {
+        border: 1px solid rgb(0, 0, 0);
+        background: black;
+      }
+    </style>
+    <script src="animate.js"></script>
+  </head>
+  <body>
+    <div class="focus">
+      <!-- 左右侧按钮 -->
+      <a href="javascript:;" class="arrow-l">&lt;</a>
+      <a href="javascript:;" class="arrow-r">&gt;</a>
+      <!-- 轮播区域 -->
+      <ul class="pic">
+        <li>
+          <a href="#">
+            <img src="images/pic1.jpeg" alt="pic" />
+          </a>
+        </li>
+        <li>
+          <a href="#">
+            <img src="images/pic2.jpeg" alt="pic" />
+          </a>
+        </li>
+        <li>
+          <a href="#">
+            <img src="images/pic3.jpeg" alt="pic" />
+          </a>
+        </li>
+        <li>
+          <a href="#">
+            <img src="images/pic4.jpeg" alt="pic" />
+          </a>
+        </li>
+        <li>
+          <a href="#">
+            <img src="images/pic5.jpeg" alt="pic" />
+          </a>
+        </li>
+        <li>
+          <a href="#">
+            <img src="images/pic6.jpeg" alt="pic" />
+          </a>
+        </li>
+        <li>
+          <a href="#">
+            <img src="images/pic7.jpeg" alt="pic" />
+          </a>
+        </li>
+        <li>
+          <a href="#">
+            <img src="images/pic8.jpeg" alt="pic" />
+          </a>
+        </li>
+        <li>
+          <a href="#">
+            <img src="images/pic9.jpeg" alt="pic" />
+          </a>
+        </li>
+        <li>
+          <a href="#">
+            <img src="images/pic10.jpeg" alt="pic" />
+          </a>
+        </li>
+        <li>
+          <a href="#">
+            <img src="images/pic11.jpeg" alt="pic" />
+          </a>
+        </li>
+        <li>
+          <a href="#">
+            <img src="images/pic12.jpeg" alt="pic" />
+          </a>
+        </li>
+      </ul>
+      <!-- 小圆点 -->
+      <ol class="circle"></ol>
+    </div>
+    <script>
+      // 1.鼠标移动到图片上，左右箭头显示 ，否则隐藏
+      var focus = document.querySelector(".focus");
+      var arrowL = document.querySelector(".arrow-l");
+      var arrowR = document.querySelector(".arrow-r");
+      var pic = document.querySelector(".pic");
+      var flag = true;
+      focus.addEventListener("mouseenter", function () {
+        arrowL.style.display = "block";
+        arrowR.style.display = "block";
+        clearInterval(timer);
+        timer = null;
+      });
+      focus.addEventListener("mouseleave", function () {
+        arrowL.style.display = "none";
+        arrowR.style.display = "none";
+        timer = setInterval(function () {
+          // 手动调用点击事件
+          arrowR.click();
+        }, 1500);
+      });
+      //   2.动态生成小圆圈，样式变化
+      var circle = document.querySelector(".circle");
+
+      var num = 0;
+      var spot = 0;
+      for (var i = 0; i < pic.children.length; i++) {
+        var li = document.createElement("li");
+        circle.appendChild(li);
+        li.setAttribute("data-index", i); //给小圆圈添加属性data-index
+        //   3.点击小圆圈，实现图片滚动
+        li.addEventListener("mouseover", function () {
+          for (var i = 0; i < circle.children.length; i++) {
+            circle.children[i].className = "";
+          }
+          this.className = "current";
+          var index = this.getAttribute("data-index");
+          num = index;
+          spot = index;
+          animate(pic, -(index * focus.offsetWidth));
+        });
+      }
+      // 将第一张图片再复制一张实现无缝滚动
+      var firstLi = pic.children[0].cloneNode(true);
+      pic.appendChild(firstLi);
+
+      // 4.点击右侧按钮，实现图片滚动
+      arrowR.addEventListener("click", function () {
+        if (flag) {
+          flag = false;
+          if (num == pic.children.length - 1) {
+            pic.style.left = 0 + "px";
+            num = 0;
+          }
+          num++;
+          animate(pic, -num * focus.offsetWidth, function () {
+            flag = true;
+          });
+          // 5.点击右侧按钮，实现图片滚动的时候，对应的小圆点同时变化
+          spot++;
+          if (spot == circle.children.length) {
+            spot = 0;
+          }
+          for (var i = 0; i < circle.children.length; i++) {
+            circle.children[i].className = "";
+          }
+          circle.children[spot].className = "current";
+        }
+      });
+
+      circle.children[0].className = "current";
+      // 6.点击左侧按钮，实现图片滚动
+      arrowL.addEventListener("click", function () {
+        if (flag) {
+          flag = false;
+          if (num == 0) {
+            num = pic.children.length - 1;
+            pic.style.left = -num * focus.offsetWidth + "px";
+          }
+          num--;
+          animate(pic, -num * focus.offsetWidth, function () {
+            flag = true;
+          });
+          // 5.点击右侧按钮，实现图片滚动的时候，对应的小圆点同时变化
+          spot--;
+          if (spot == 0) {
+            spot = circle.children.length - 1;
+          }
+          for (var i = 0; i < circle.children.length; i++) {
+            circle.children[i].className = "";
+          }
+          circle.children[spot].className = "current";
+        }
+      });
+      // 6.自动播放轮播图
+      var timer = setInterval(function () {
+        // 手动调用点击事件
+        arrowR.click();
+      }, 3000);
+      // 7.鼠标经过时，停止定时器
+      // 8.设置节流阀 控制点击左右侧按钮的同时轮播图轮播
+    </script>
+  </body>
+</html>

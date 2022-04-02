@@ -1,0 +1,76 @@
+/* 公共样式 */
+div,img,p,h1,h2,h3,h4,h5,h6,a,ul,ol,li{
+    margin: 0;
+    padding: 0;
+}
+ul,ol{
+    list-style: none;
+}
+
+img{
+    vertical-align: middle;
+}
+a{
+    text-decoration: none;
+    color: black;
+}
+
+
+.focus{
+    width: 1000px;
+    height: 625px;
+    /* 这里必须加高度 */
+    margin: 0 auto;
+    overflow: hidden;
+    position: relative;
+}
+.arrow-l{
+    display: none;
+    color: #ccc;
+    font-size: 100px;
+    background: rgba(235, 235, 235,0.2);
+    border-radius: 0 100% 100% 0;
+    position: absolute;
+    top: 250px;
+    left: 0;
+    z-index: 2;
+}
+.arrow-r{
+    display: none;
+    color: #ccc;
+    font-size: 100px;
+    background: rgba(235, 235, 235,0.2);
+    border-radius: 100% 0 0 100%;
+    position:absolute;
+    top: 250px;
+    right: 0;
+    z-index: 2;
+}
+
+.pic{
+    width: 500%;
+    position:absolute;
+    top: 0;
+    left: 0;
+}
+.pic li{
+    float: left;
+}
+.spot{
+    position:absolute;
+    bottom:30px;
+    right: 20px;
+}
+.spot li{
+    width: 10px;
+    height: 10px;
+    float:left;
+    border: 1px solid black;
+    background:rgba(235, 235, 235,0.2);
+    border-radius: 50%;
+    cursor: pointer;
+    margin-right: 20px;
+}
+.spot li.current{
+    background: black;
+}
