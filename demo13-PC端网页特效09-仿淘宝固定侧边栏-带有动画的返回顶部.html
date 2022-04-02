@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <style>
+      ul,
+      ol {
+        margin: 0;
+        border: 0;
+      }
+      li {
+        list-style: none;
+      }
+      .w {
+        width: 1280px;
+        margin: 0px auto;
+        text-align: center;
+      }
+      .header {
+        height: 150px;
+        line-height: 150px;
+        background-color: bisque;
+      }
+      .banner {
+        height: 300px;
+        line-height: 300px;
+        background-color: rgb(88, 171, 226);
+      }
+      .content {
+        height: 1000px;
+        padding-top: 500px;
+        background-color: darkseagreen;
+      }
+      .content p {
+        padding-left: 484px;
+        text-align: left;
+      }
+      .footer {
+        height: 100px;
+        line-height: 100px;
+        background: #ccc;
+      }
+      .slider-bar {
+        width: 42px;
+        background: rgb(158, 104, 59);
+        position: absolute;
+        top: 365px;
+        right: 0px;
+      }
+      .slider-bar li {
+        width: 40px;
+        color: #fff;
+        font-size: 16px;
+        font-family: "宋体";
+        padding: 4px;
+        padding-bottom: 6px;
+      }
+      .slider-bar li:hover {
+        width: 38px;
+        height: 38px;
+        color: black;
+        border: 1px solid black;
+        background: rgb(255, 255, 255);
+        cursor: pointer;
+      }
+      li.goBack {
+        display: none;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="slider-bar">
+      <li>品质好货</li>
+      <li>猜你喜欢</li>
+      <li class="goBack">返回顶部</li>
+    </div>
+    <div class="w header"><strong>头部区域</strong></div>
+    <div class="w banner"><strong>banner区域</strong></div>
+    <div class="w content">
+      <strong>主体区域</strong><br /><br />
+      <p>
+        案例：仿淘宝固定右侧侧边栏<br />
+        1.原先侧边栏是绝对定位<br />
+        2.当页面滚动到一定位置，侧边栏改为固定定位<br />
+        3.页面继续滚动，会让返回顶部显示出来<br />
+      </p>
+      <p>
+        案例：返回顶部<br />
+        滚动窗口至文档中的特定位置。<br />
+        window.scroll(x,y)<br />
+      </p>
+    </div>
+    <div class="w footer"><strong>底部部分</strong></div>
+    <script>
+      var header = document.querySelector(".header");
+      var banner = document.querySelector(".banner");
+      var content = document.querySelector(".content");
+      var sliderBar = document.querySelector(".slider-bar");
+      var goBack = document.querySelector(".goBack");
+      var bannerTop = banner.offsetTop;
+      var sliderBarTop = sliderBar.offsetTop - bannerTop;
+      var contentTop = content.offsetTop;
+      document.addEventListener("scroll", function () {
+        if (window.pageYOffset >= bannerTop) {
+          sliderBar.style.position = "fixed";
+          sliderBar.style.top = sliderBarTop + "px";
+        } else {
+          sliderBar.style.position = "absolute";
+          sliderBar.style.top = "365px";
+        }
+        if (window.pageYOffset >= contentTop) {
+          goBack.style.display = "inline-block";
+        } else {
+          goBack.style.display = "none";
+        }
+      });
+      // 当我们点击了返回顶部的模块，就让窗口滚动到页面的最上方
+      // goBack.addEventListener("click", function () {
+      //不带单位px
+      //   window.scroll(0, 0);
+      // });
+
+      goBack.addEventListener("click", function () {
+        animate(window, 0);
+      });
+      function animate(obj, target, callback) {
+        clearInterval(obj.timer);
+        obj.timer = setInterval(function () {
+          var step = (target - window.pageYOffset) / 10;
+          step = step > 0 ? Math.ceil(step) : Math.floor(step);
+          if (window.pageYOffset == target) {
+            clearInterval(obj.timer);
+            if (callback) {
+              callback();
+            }
+          }
+          window.scroll(0, window.pageYOffset + step);
+        }, 10);
+      }
+    </script>
+  </body>
+</html>
