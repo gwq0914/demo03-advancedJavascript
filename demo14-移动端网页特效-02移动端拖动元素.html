@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>移动端拖动元素</title>
+    <style>
+      div {
+        width: 200px;
+        height: 200px;
+        background-color: paleturquoise;
+        position: absolute;
+      }
+    </style>
+  </head>
+  <body>
+    <p>
+      1.touchstart、touchmove、touched可以实现拖动元素。<br />
+      2.但是拖动元素需要当前手指的的坐标值，我们可以使用targetTouches[0]里面的pageX和pageY<br />
+      3.移动端拖动的原理：手指移动中，计算出手指移动的距离。然后用盒子原来的位置+手指移动的距离。<br />
+      4.手指移动的距离：手指滑动中的位置减去手指刚开始触摸的位置。<br />
+      拖动元素三部曲：<br />
+      1）触摸元素touchstart:获取手指初始坐标，同时获得盒子原来的位置<br />
+      2）移动手指touchmove：计算手指滑动距离，并且移动盒子<br />
+      3）离开手指touchend:<br />
+      注意：手指移动也会触发滚动屏幕所以这里要组织默认的屏幕滚动e.preventDefault();<br />
+    </p>
+    <div></div>
+    <script>
+      var div = document.querySelector("div");
+      var startX = 0;
+      var startY = 0;
+      var x = 0;
+      var y = 0;
+      div.addEventListener("touchstart", function (e) {
+        startX = e.targetTouches[0].pageX;
+        startY = e.targetTouches[0].pageY;
+        x = div.offsetLeft;
+        y = div.offsetTop;
+        console.log("手指的初始坐标：（" + startX + "," + startY + "）");
+        console.log("盒子的位置：（" + x + "," + y + "）");
+      });
+      div.addEventListener("touchmove", function (e) {
+        var moveX = e.targetTouches[0].pageX - startX;
+        var moveY = e.targetTouches[0].pageY - startY;
+        this.style.left = x + moveX + "px";
+        this.style.top = y + moveY + "px";
+        e.preventDefault();
+      });
+    </script>
+  </body>
+</html>
