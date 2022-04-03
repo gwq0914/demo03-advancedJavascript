@@ -10,6 +10,6 @@ function animate(obj, target, callback) {
         }
       }
       obj.style.left = obj.offsetLeft + step + "px";
-      console.log(step);
+      // console.log(step);
     }, 10);
   }
