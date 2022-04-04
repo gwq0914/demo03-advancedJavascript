@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title></title>
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+      }
+      .w {
+        width: 750px;
+        margin: 0 auto;
+      }
+      img {
+        border: 0;
+        vertical-align: middle;
+      }
+      .focus {
+        width: 750px;
+        height: 150px;
+        overflow: hidden;
+        position: relative;
+      }
+      .focus ul {
+        list-style: none;
+        width: 500%;
+        margin-left: -100%;
+      }
+      .focus ul li {
+        float: left;
+      }
+      .focus ol {
+        position: absolute;
+        bottom: 5px;
+        right: 5px;
+      }
+      .focus ol li {
+        list-style: none;
+        width: 5px;
+        height: 5px;
+        background-color: rgba(0, 0, 0, 0.2);
+        border: 1px solid black;
+        margin-right: 5px;
+        border-radius: 50%;
+        float: left;
+      }
+      .focus ol li.current {
+        width: 15px;
+        border-radius: 15px;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="focus w">
+      <ul>
+        <li><img src="images/focus3.jpg" alt="" /></li>
+        <li><img src="images/focus1.jpg" alt="" /></li>
+        <li><img src="images/focus2.jpg" alt="" /></li>
+        <li><img src="images/focus3.jpg" alt="" /></li>
+        <li><img src="images/focus1.jpg" alt="" /></li>
+      </ul>
+      <!-- 小圆点 -->
+      <ol>
+        <li class="current"></li>
+        <li></li>
+        <li></li>
+      </ol>
+    </div>
+    <script>
+      var focus = document.querySelector(".focus");
+      var ul = focus.children[0];
+      var w = focus.offsetWidth;
+      var index = 0;
+      var timer = setInterval(function () {
+        index++;
+        var translatex = -index * w;
+        ul.style.transition = "all .3s";
+        ul.style.transform = "translateX(" + translatex + "px)";
+      }, 2000);
+    </script>
+  </body>
+</html>
