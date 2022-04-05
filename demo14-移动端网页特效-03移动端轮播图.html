@@ -36,6 +36,7 @@
         position: absolute;
         bottom: 5px;
         right: 5px;
+        transition: all 0.3s;
       }
       .focus ol li {
         list-style: none;
@@ -72,14 +73,91 @@
     <script>
       var focus = document.querySelector(".focus");
       var ul = focus.children[0];
-      var w = focus.offsetWidth;
+      var ol = focus.children[1];
       var index = 0;
+      var flag = false;
       var timer = setInterval(function () {
         index++;
-        var translatex = -index * w;
+        var translateX = -index * focus.offsetWidth;
+        //transition 过度
+        // transition:transition-property transition-duration transition-timing-function transition-delay
+        //transition-property:规定设置过度效果的css属性名称 none|all|property
+        //transition-duration:规定完成过度效果需要多少秒或多少毫秒 ns|ms
+        //transition-timing-function:规定速度效果的速度曲线 linear|ease|ease-in|ease-out|ease-in-out|cubic-bezier(n,n,n,n)
+        //transition-delay:定义过度效果何时开始 ns|ms
+
         ul.style.transition = "all .3s";
-        ul.style.transform = "translateX(" + translatex + "px)";
+
+        // transform 动画
+
+        // transform:none|transform-functions;
+        // transform-functions:
+        // translate(x,y) 定义2D转换；
+        // translate3d(x,y,z) 定义3D转换；
+        // scale(x[,y]) 定义2D缩放；
+        // scale3d(x,y,z) 定义3D缩放；
+        // rotate(angle) 定义旋转
+        // skew(x,y)  定义2D倾斜变换
+        // perspective(n)  定义透视视图
+        // none 无变化
+        ul.style.transform = "translateX(" + translateX + "px)";
       }, 2000);
+      // 等着我们过渡完成之后，再去判断
+      //监听过渡完成的事件
+      ul.addEventListener("transitionend", function () {
+        if (index >= 3) {
+          index = 0;
+          ul.style.transition = "none";
+          var translateX = -index * focus.offsetWidth;
+          ul.style.transform = "translateX(" + translateX + "px)";
+        } else if (index < 0) {
+          index = 2;
+          ul.style.transition = "none";
+          var translateX = -index * focus.offsetWidth;
+          ul.style.transform = "translateX(" + translateX + "px)";
+        }
+        ol.querySelector(".current").classList.remove("current");
+        ol.children[index].classList.add("current");
+      });
+      var startX = 0;
+      var moveX = 0;
+      ul.addEventListener("touchstart", function (e) {
+        var startX = e.targetTouches[0].pageX;
+        clearInterval(timer);
+      });
+      ul.addEventListener("touchmove", function (e) {
+        moveX = e.targetTouches[0].pageX - starX;
+        var translateX = -index * focus.offsetWidth + moveX;
+        ul.style.transition = "none";
+        ul.style.transform = "translateX(" + translatex + "px)";
+        e.preventDefault();
+        flag = false;
+      });
+      ul.addEventListener("touchend", function () {
+        if (flag) {
+          if (Math.abs(moveX) > 50) {
+            if (moveX > 0) {
+              index--;
+            } else {
+              index++;
+            }
+            var translateX = -index * offsetWidth;
+            ul.style.transition = "all .3s";
+            ul.style.transform = "translateX(" + translatX + "px)";
+          } else {
+            var translateX = -index * offsetWidth;
+            ul.style.transition = "all 0.1s";
+            ul.style.transform = "transformX(" + translateX + "px)";
+          }
+          clearInterval(timer);
+          timer = setInterval(function () {
+            index++;
+            var translateX = -index * focus.offsetWidth;
+            ul.style.transition = "all .3s";
+            ul.style.transform = "translateX(" + translateX + "px)";
+          }, 2000);
+        }
+      });
     </script>
   </body>
 </html>
