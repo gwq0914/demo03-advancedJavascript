@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <script type="application/javascript" src="fastclick.js"></script>
+  </head>
+  <body>
+    <p>移动端要求快速开发，所以我们经常会借助于一些插件来帮我们完成操作。</p>
+    <p>
+      js插件时js文件，它遵循一定规范编写，方便程序展示效果，拥有特定功能且方便调用。如轮播图和瀑布流插件。
+    </p>
+    <p>它一般是蔚蓝解决某个问题而专门存在，其功能单一，并且比较小。</p>
+    <script>
+      if ("addEventListener" in document) {
+        document.addEventListener(
+          "DOMContentLoaded",
+          function () {
+            FastClick.attach(document.body);
+          },
+          false
+        );
+      }
+    </script>
+  </body>
+</html>
